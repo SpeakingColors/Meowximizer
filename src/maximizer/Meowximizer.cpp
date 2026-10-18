@@ -2,6 +2,9 @@
 
 using namespace catfx;
 
+// gentle per-band saturation: blend of the clean signal and a soft tanh curve
+static inline float bandSat(float x, float amt) { return x * (1.f - amt) + amt * 0.5f * std::tanh(2.f * x); }
+
 // soft per-band limiter: linear up to 70% of the ceiling, then a smooth tanh knee up to the ceiling
 static inline float bandLimit(float x, float ceil)
 {
@@ -20,11 +23,11 @@ Meowximizer::Meowximizer()
           { "squeeze", "Squeeze", " %", 0.f, 100.f, 30.f, 0.f, "Squeeze: how much each of the three bands is evened out, pressing loud parts down and lifting quiet ones up. More = denser." },
           { "warm", "Warm", " %", 0.f, 100.f, 20.f, 0.f, "Warm: light saturation on the whole signal. Rounds peaks and adds body." },
           { "push", "Push", " dB", 0.f, 18.f, 0.f, 0.f, "Push: raises the level going into the squeeze and the limiter for more loudness." },
-          { "opto", "Opto", " %", 0.f, 100.f, 0.f, 0.f, "Opto: an LA-2A style leveller in front of everything. Slow, smooth, program-dependent compression that thickens leads and bass. 0 = off." },
+          { "opto", "Opto", " %", 0.f, 100.f, 0.f, 0.f, "Opto: extra LA-2A style leveller on top of whatever the squeeze style already uses. Slow, smooth, program-dependent compression that thickens leads and bass. 0 = only what the style brings." },
           { "ceil", "Ceiling", " dB", -12.f, 0.f, -0.3f, 0.f, "Ceiling: the output limiter never lets the signal go above this level." },
           { "mix", "Mix", " %", 0.f, 100.f, 100.f, 0.f, "Mix: dry/wet blend for parallel processing." },
           { "out", "Output", " dB", -12.f, 12.f, 0.f, 0.f, "Output: final level. Match it with the bypassed level when comparing." } },
-        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer", "Thick Supersaw" }, 0, "Squeeze style: Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb). Thick Supersaw is a slow, soft squeeze that pairs with the Opto knob to fatten supersaw leads." } })
+        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer", "Thick Supersaw" }, 0, "Squeeze style: each style is a different chain. Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb). Thick Supersaw is a slow, soft squeeze that pairs with the Opto knob to fatten supersaw leads." } })
 {
     for (int i = 0; i < 3; ++i) { bandLv[i] = -100.f; bandGain[i] = 0.f; }
 }
@@ -59,7 +62,8 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
     const float push = juce::Decibels::decibelsToGain(get("push")), outG = juce::Decibels::decibelsToGain(get("out"));
     const int mode = juce::jlimit(0, kNumStyles - 1, (int) get("mode"));
     const SqStyle& sty = kStyles[mode];
-    const float optoAmt = get("opto") / 100.f;
+    const float optoAmt = juce::jlimit(0.f, 1.f, get("opto") / 100.f + sty.optoMix * depth);   // the style's own leveller plus the Opto knob
+    const float satAmt = sty.sat * depth, maxG = juce::Decibels::decibelsToGain(sty.maxi * depth);
     float optoGrAcc = 0.f;
     const float x1 = 150.f, x2 = 2500.f;
     const int dLoS = juce::jmin(kRing - 2, (int) (proc * 0.0025f * (float) fs)), dMidS = juce::jmin(kRing - 2, (int) (proc * 0.0010f * (float) fs));
@@ -120,18 +124,20 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
         {
             float l = shelf[c].processSample(lo[c]) * g0 + bh;
             float m = mid[c] * g1;
+            if (satAmt > 0.f) { l = bandSat(l, satAmt); m = bandSat(m, satAmt); }
             if (sty.limit) { l = bandLimit(l, 0.85f); m = bandLimit(m, 0.8f); }
             // time offsets: lows and mids arrive slightly after the highs
             auto& rl = ringLo[c]; auto& rm = ringMid[c];
             rl[(size_t) ringPos] = l; rm[(size_t) ringPos] = m;
             l = rl[(size_t) ((ringPos - dLoS + kRing) % kRing)]; m = rm[(size_t) ((ringPos - dMidS + kRing) % kRing)];
             float h = hi[c] * g2 * liftG;
+            if (satAmt > 0.f) h = bandSat(h, satAmt);
             if (sty.limit) h = bandLimit(h, 0.6f);
             const float ex = airHp2[c].processSample(std::tanh(5.f * airHp1[c].processSample(hi[c])));
             h += ex * airAmt * 0.5f;
             float y = l + m + h;
             y = y * (1.f - warm) + warm * std::tanh(d * y) / d;
-            buf.getWritePointer(c)[i] = y;
+            buf.getWritePointer(c)[i] = y * maxG;
             if (c == 0 && i == 0) lift = liftDb;
         }
         ringPos = (ringPos + 1) % kRing;
@@ -153,8 +159,8 @@ std::vector<std::pair<juce::String, float>> Meowximizer::choiceDefaults(const ju
 {
     if (id != "mode") return {};
     struct D { float squeeze, push, opto; };
-    static const D d[kNumStyles] = { { 25.f, 0.f, 0.f }, { 55.f, 3.f, 0.f }, { 55.f, 3.f, 0.f }, { 40.f, 0.f, 0.f }, { 45.f, 2.f, 35.f }, { 55.f, 3.f, 0.f },
-                                     { 60.f, 2.f, 0.f }, { 50.f, 0.f, 0.f }, { 60.f, 4.f, 0.f }, { 65.f, 2.f, 20.f }, { 30.f, 0.f, 75.f } };
+    static const D d[kNumStyles] = { { 25.f, 0.f, 0.f }, { 55.f, 0.f, 0.f }, { 55.f, 2.f, 0.f }, { 45.f, 0.f, 0.f }, { 55.f, 1.f, 0.f }, { 55.f, 2.f, 0.f },
+                                     { 60.f, 0.f, 0.f }, { 50.f, 0.f, 0.f }, { 60.f, 1.f, 0.f }, { 65.f, 1.f, 0.f }, { 85.f, 0.f, 0.f } };
     const auto& v = d[juce::jlimit(0, kNumStyles - 1, item)];
     return { { "squeeze", v.squeeze }, { "push", v.push }, { "opto", v.opto } };
 }
@@ -199,7 +205,7 @@ std::vector<FxBase::Preset> Meowximizer::presets() const
         { "Quiet Lift", { { "mode", 7.f }, { "squeeze", 50.f }, { "air", 20.f }, { "process", 4.f }, { "warm", 10.f } } },
         { "Hardstyle Lead Lock", { { "mode", 8.f }, { "squeeze", 60.f }, { "push", 4.f }, { "air", 20.f }, { "process", 5.f }, { "warm", 30.f }, { "ceil", -0.5f } } },
         { "Harsh Highs Tamer", { { "mode", 9.f }, { "squeeze", 65.f }, { "opto", 20.f }, { "air", 5.f }, { "process", 3.f }, { "warm", 15.f }, { "push", 2.f } } },
-        { "Thick Supersaw", { { "mode", 10.f }, { "squeeze", 30.f }, { "opto", 75.f }, { "warm", 35.f }, { "process", 3.f }, { "contour", 1.f }, { "air", 10.f }, { "bass", 0.f } } },
+        { "Thick Supersaw", { { "mode", 10.f }, { "squeeze", 85.f }, { "opto", 0.f }, { "warm", 35.f }, { "process", 3.f }, { "contour", 1.f }, { "air", 10.f }, { "bass", 0.f } } },
         { "Kick Beef (Parallel)", { { "mode", 5.f }, { "squeeze", 70.f }, { "push", 2.f }, { "mix", 50.f }, { "contour", 4.f }, { "bass", 20.f }, { "process", 2.f }, { "air", 0.f }, { "warm", 25.f } } },
         { "Mastering Touch", { { "mode", 0.f }, { "squeeze", 15.f }, { "push", 1.f }, { "warm", 10.f }, { "air", 12.f }, { "process", 3.f }, { "contour", 1.f }, { "ceil", -0.3f } } } };
 }
@@ -254,6 +260,15 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         g.setFont(juce::FontOptions(11.f));
         g.setColour(green()); g.drawText("bands: before (grey),", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.setColour(accent()); g.drawText("after", (int) r.getX() + 120, (int) r.getY() + 1, 60, 12, juce::Justification::left);
+        {   // what the chosen style is running right now
+            const auto& sty = kStyles[juce::jlimit(0, kNumStyles - 1, (int) get("mode"))];
+            const float depth = get("squeeze") / 100.f, oe = juce::jlimit(0.f, 1.f, get("opto") / 100.f + sty.optoMix * depth);
+            g.setFont(juce::FontOptions(10.f));
+            g.setColour(accent()); g.drawText("opto " + juce::String((int) std::round(oe * 100.f)), (int) r.getX() + 34, (int) r.getY() + 13, 52, 11, juce::Justification::left);
+            g.setColour(blue());   g.drawText("mb " + juce::String((int) std::round(sty.mb * depth * 100.f)), (int) r.getX() + 84, (int) r.getY() + 13, 40, 11, juce::Justification::left);
+            g.setColour(green());  g.drawText("sat " + juce::String((int) std::round(sty.sat * depth * 100.f)), (int) r.getX() + 122, (int) r.getY() + 13, 44, 11, juce::Justification::left);
+            g.setColour(red());    g.drawText("+" + juce::String(sty.maxi * depth, 1), (int) r.getX() + 160, (int) r.getY() + 13, 40, 11, juce::Justification::left);
+        }
     }
     else if (idx == 2) // saturation curve and the limiter ceiling
     {

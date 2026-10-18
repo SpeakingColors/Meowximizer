@@ -24,20 +24,22 @@ private:
     // thr/ratio/knee: downward compression; up/lo: upward lift of quiet parts above the floor "lo";
     // att/rel (ms) with relAuto (extra ms of release per dB of reduction); floor: share of the effect that is always on when Squeeze > 0;
     // off: threshold offset per band (low, mid, high); limit: soft limiter on each band; sub: 22 Hz high-pass before the squeeze.
-    struct SqStyle { float thr, ratio, up, lo, knee, att, rel, relAuto, floor; float off[3]; bool limit, sub; };
+    // Chain recipe (all scaled by the Squeeze amount): optoMix = LA-2A style leveller added in front, mb = share of the multiband compression,
+    // sat = extra saturation on each band, maxi = extra push (dB) into the output limiter. The Opto knob adds more leveller on top.
+    struct SqStyle { float thr, ratio, up, lo, knee, att, rel, relAuto, floor; float off[3]; bool limit, sub; float optoMix, mb, sat, maxi; };
     static constexpr int kNumStyles = 11;
     static constexpr SqStyle kStyles[kNumStyles] = {
-        { -14.f, 2.5f, 0.20f, -52.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Gentle
-        { -22.f, 5.0f, 0.45f, -48.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // OTT style
-        { -18.f, 3.5f, 0.00f, -60.f,  6.f,  2.f,  40.f, 12.f, 0.35f, { 0.f, 0.f, -4.f },  true,  true  },   // Dance Master
-        { -16.f, 2.0f, 0.10f, -56.f, 10.f, 10.f, 120.f,  6.f, 0.20f, { 0.f, 0.f, 0.f },   false, false },   // Glue
-        { -18.f, 2.2f, 0.10f, -56.f, 12.f, 10.f, 250.f, 10.f, 0.25f, { 0.f, 0.f, 0.f },   false, false },   // Slow Smooth
-        { -14.f, 3.0f, 0.00f, -60.f,  4.f, 20.f,  60.f,  0.f, 0.20f, { 0.f, 0.f, 0.f },   false, false },   // Punchy (slow attack keeps transients)
-        { -20.f, 6.0f, 0.00f, -60.f,  3.f,  1.f,  50.f, 10.f, 0.40f, { 0.f, 0.f, -2.f },  true,  true  },   // Tight Lock
-        { -24.f, 1.5f, 0.60f, -55.f,  6.f,  5.f, 120.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Lift (brings quiet parts up)
-        { -20.f, 4.0f, 0.10f, -60.f,  4.f,  3.f,  30.f, 15.f, 0.40f, { 2.f, 0.f, -3.f },  true,  true  },   // Hardstyle Lock
-        { -16.f, 4.0f, 0.00f, -60.f,  8.f,  3.f,  60.f, 12.f, 0.40f, { 0.f, -2.f, -9.f },  true,  true  },   // Highs Tamer
-        { -20.f, 2.0f, 0.00f, -60.f, 12.f, 10.f, 200.f, 20.f, 0.30f, { 0.f, 0.f, -2.f }, false, false } }; // Thick Supersaw (slow, soft, opto-like partner)
+        { -14.f, 2.5f, 0.20f, -52.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false, 0.f, 1.f, 0.f, 0.f },   // Gentle
+        { -22.f, 5.0f, 0.45f, -48.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false, 0.f, 1.f, 0.10f, 2.f },   // OTT style
+        { -18.f, 3.5f, 0.00f, -60.f,  6.f,  2.f,  40.f, 12.f, 0.35f, { 0.f, 0.f, -4.f },  true,  true, 0.f, 1.f, 0.15f, 1.f },   // Dance Master
+        { -16.f, 2.0f, 0.10f, -56.f, 10.f, 10.f, 120.f,  6.f, 0.20f, { 0.f, 0.f, 0.f },   false, false, 0.20f, 0.80f, 0.20f, 0.f },   // Glue
+        { -18.f, 2.2f, 0.10f, -56.f, 12.f, 10.f, 250.f, 10.f, 0.25f, { 0.f, 0.f, 0.f },   false, false, 0.50f, 0.50f, 0.15f, 0.f },   // Slow Smooth
+        { -14.f, 3.0f, 0.00f, -60.f,  4.f, 20.f,  60.f,  0.f, 0.20f, { 0.f, 0.f, 0.f },   false, false, 0.f, 0.90f, 0.30f, 1.f },   // Punchy (slow attack keeps transients)
+        { -20.f, 6.0f, 0.00f, -60.f,  3.f,  1.f,  50.f, 10.f, 0.40f, { 0.f, 0.f, -2.f },  true,  true, 0.f, 1.f, 0.10f, 3.f },   // Tight Lock
+        { -24.f, 1.5f, 0.60f, -55.f,  6.f,  5.f, 120.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false, 0.f, 1.f, 0.f, 0.f },   // Lift (brings quiet parts up)
+        { -20.f, 4.0f, 0.10f, -60.f,  4.f,  3.f,  30.f, 15.f, 0.40f, { 2.f, 0.f, -3.f },  true,  true, 0.10f, 1.f, 0.40f, 3.f },   // Hardstyle Lock
+        { -16.f, 4.0f, 0.00f, -60.f,  8.f,  3.f,  60.f, 12.f, 0.40f, { 0.f, -2.f, -9.f },  true,  true, 0.25f, 1.f, 0.10f, 0.f },   // Highs Tamer
+        { -20.f, 2.0f, 0.00f, -60.f, 12.f, 10.f, 200.f, 20.f, 0.30f, { 0.f, 0.f, -2.f }, false, false, 0.85f, 0.45f, 0.35f, 0.5f } };   // Thick Supersaw (slow, soft, opto-like partner)
     struct Squeezer
     {
         float env = 0.f, grAuto = 0.f;
@@ -54,7 +56,7 @@ private:
             const float up = (db > s.lo && db < thr) ? (thr - db) * s.up : 0.f;       // lift quiet parts above the floor
             grAuto += 0.001f * (red - grAuto);
             const float scale = depth > 0.f ? s.floor + (1.f - s.floor) * depth : 0.f;
-            gainDbOut = juce::jlimit(-24.f, 18.f, (up - red) * scale);
+            gainDbOut = juce::jlimit(-24.f, 18.f, (up - red) * scale * s.mb);
             return juce::Decibels::decibelsToGain(gainDbOut);
         }
     };
