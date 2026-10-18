@@ -187,8 +187,9 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
             const float shown = b == 2 ? gd + lift.load() : gd;
             g.drawText(juce::String(nm[b]) + " " + juce::String(shown > 0.f ? "+" : "") + juce::String(shown, 1), c.withY(p.getBottom() + 2.f).withHeight(13.f).toNearestInt(), juce::Justification::centred);
         }
-        g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
-        g.drawText("bands: before (grey), after", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.setFont(juce::FontOptions(11.f));
+        g.setColour(green()); g.drawText("bands: before (grey),", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.setColour(accent()); g.drawText("after", (int) r.getX() + 120, (int) r.getY() + 1, 60, 12, juce::Justification::left);
     }
     else if (idx == 2) // saturation curve and the limiter ceiling
     {
@@ -212,7 +213,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         g.setColour(accent()); g.setFont(juce::FontOptions(11.f));
         g.drawText("saturation and limiter ceiling", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.setColour(red()); g.drawText("ceiling " + juce::String(ceil, 1) + " dB", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
-        g.setColour(dim()); g.drawText("input level", p.toNearestInt().withY((int) p.getBottom() + 1).withHeight(12), juce::Justification::centred);
+        g.setColour(blue()); g.drawText("input level", p.toNearestInt().withY((int) p.getBottom() + 1).withHeight(12), juce::Justification::centred);
     }
     else                // level: IN and OUT meters
     {
