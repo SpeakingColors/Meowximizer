@@ -19,33 +19,40 @@ public:
     juce::StringArray randomExclude() const override { return { "out", "ceil", "mix" }; }
 private:
     static constexpr int kRing = 1024;
+    // Squeeze styles: each one is a full set of compressor behaviour for the three bands.
+    // thr/ratio/knee: downward compression; up/lo: upward lift of quiet parts above the floor "lo";
+    // att/rel (ms) with relAuto (extra ms of release per dB of reduction); floor: share of the effect that is always on when Squeeze > 0;
+    // off: threshold offset per band (low, mid, high); limit: soft limiter on each band; sub: 22 Hz high-pass before the squeeze.
+    struct SqStyle { float thr, ratio, up, lo, knee, att, rel, relAuto, floor; float off[3]; bool limit, sub; };
+    static constexpr int kNumStyles = 10;
+    static constexpr SqStyle kStyles[kNumStyles] = {
+        { -14.f, 2.5f, 0.20f, -52.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Gentle
+        { -22.f, 5.0f, 0.45f, -48.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // OTT style
+        { -18.f, 3.5f, 0.00f, -60.f,  6.f,  2.f,  40.f, 12.f, 0.35f, { 0.f, 0.f, -4.f },  true,  true  },   // Dance Master
+        { -16.f, 2.0f, 0.10f, -56.f, 10.f, 10.f, 120.f,  6.f, 0.20f, { 0.f, 0.f, 0.f },   false, false },   // Glue
+        { -18.f, 2.2f, 0.10f, -56.f, 12.f, 10.f, 250.f, 10.f, 0.25f, { 0.f, 0.f, 0.f },   false, false },   // Slow Smooth
+        { -14.f, 3.0f, 0.00f, -60.f,  4.f, 20.f,  60.f,  0.f, 0.20f, { 0.f, 0.f, 0.f },   false, false },   // Punchy (slow attack keeps transients)
+        { -20.f, 6.0f, 0.00f, -60.f,  3.f,  1.f,  50.f, 10.f, 0.40f, { 0.f, 0.f, -2.f },  true,  true  },   // Tight Lock
+        { -24.f, 1.5f, 0.60f, -55.f,  6.f,  5.f, 120.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Lift (brings quiet parts up)
+        { -20.f, 4.0f, 0.10f, -60.f,  4.f,  3.f,  30.f, 15.f, 0.40f, { 2.f, 0.f, -3.f },  true,  true  },   // Hardstyle Lock
+        { -16.f, 4.0f, 0.00f, -60.f,  8.f,  3.f,  60.f, 12.f, 0.40f, { 0.f, -2.f, -9.f },  true,  true  } }; // Highs Tamer
     struct Squeezer
     {
         float env = 0.f, grAuto = 0.f;
-        // returns linear gain; mode 0 gentle, 1 OTT-like, 2 Dance Master style (soft knee, auto release)
-        float gain(float peak, float depth, int mode, float aA, float aR, float& gainDbOut, float fs = 44100.f, bool highBand = false)
+        float gain(float peak, float depth, const SqStyle& s, int band, float fs, float& gainDbOut)
         {
-            if (mode == 2)
-            {
-                const float att = std::exp(-1.f / (0.002f * fs));
-                const float rel = std::exp(-1.f / ((0.04f + 0.012f * grAuto) * fs));   // auto release: deeper reduction releases slower
-                const float a = peak > env ? att : rel; env = a * env + (1.f - a) * peak;
-                const float db = juce::Decibels::gainToDecibels(env, -100.f);
-                const float thr = highBand ? -22.f : -18.f, knee = 6.f, ratio = 3.5f, over = db - thr;
-                float red = 0.f;
-                if (over > knee * 0.5f) red = over * (1.f - 1.f / ratio);
-                else if (over > -knee * 0.5f) { const float t = over + knee * 0.5f; red = (1.f - 1.f / ratio) * t * t / (2.f * knee); }
-                grAuto += 0.001f * (red - grAuto);
-                gainDbOut = -juce::jlimit(0.f, 24.f, red * (0.35f + 0.65f * depth) * (depth > 0.f ? 1.f : 0.f));
-                return juce::Decibels::decibelsToGain(gainDbOut);
-            }
-            const float a = peak > env ? aA : aR; env = a * env + (1.f - a) * peak;
+            const float att = std::exp(-1.f / (s.att * 0.001f * fs));
+            const float rel = std::exp(-1.f / ((s.rel + s.relAuto * grAuto) * 0.001f * fs));
+            const float a = peak > env ? att : rel; env = a * env + (1.f - a) * peak;
             const float db = juce::Decibels::gainToDecibels(env, -100.f);
-            const float thrHi = mode ? -22.f : -14.f, thrLo = mode ? -48.f : -52.f;
-            const float down = db > thrHi ? -(db - thrHi) * (1.f - 1.f / (mode ? 5.f : 2.5f)) : 0.f;
-            const float up = db < thrLo ? 0.f : (db < thrHi ? (thrHi - db) * (mode ? 0.45f : 0.2f) : 0.f); // upward: lift quieter parts above the gate
-            gainDbOut = juce::jlimit(-24.f, 18.f, (down + up) * depth);
-            juce::ignoreUnused(fs, highBand);
+            const float thr = s.thr + s.off[band], over = db - thr, slope = 1.f - 1.f / s.ratio;
+            float red = 0.f;
+            if (s.knee > 0.f && over > -s.knee * 0.5f && over < s.knee * 0.5f) { const float t = over + s.knee * 0.5f; red = slope * t * t / (2.f * s.knee); }
+            else if (over >= s.knee * 0.5f && over > 0.f) red = over * slope;
+            const float up = (db > s.lo && db < thr) ? (thr - db) * s.up : 0.f;       // lift quiet parts above the floor
+            grAuto += 0.001f * (red - grAuto);
+            const float scale = depth > 0.f ? s.floor + (1.f - s.floor) * depth : 0.f;
+            gainDbOut = juce::jlimit(-24.f, 18.f, (up - red) * scale);
             return juce::Decibels::decibelsToGain(gainDbOut);
         }
     };

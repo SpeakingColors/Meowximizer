@@ -24,7 +24,7 @@ Meowximizer::Meowximizer()
           { "ceil", "Ceiling", " dB", -12.f, 0.f, -0.3f, 0.f, "Ceiling: the output limiter never lets the signal go above this level." },
           { "mix", "Mix", " %", 0.f, 100.f, 100.f, 0.f, "Mix: dry/wet blend for parallel processing." },
           { "out", "Output", " dB", -12.f, 12.f, 0.f, 0.f, "Output: final level. Match it with the bypassed level when comparing." } },
-        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master" }, 0, "Squeeze mode: Gentle is a mild squeeze that keeps dynamics natural. OTT style presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band, good for taming harsh highs on leads and bass." } })
+        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer" }, 0, "Squeeze style: Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb)." } })
 {
     for (int i = 0; i < 3; ++i) { bandLv[i] = -100.f; bandGain[i] = 0.f; }
 }
@@ -57,7 +57,8 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
     const float contour = get("contour"), bassAmt = get("bass") / 100.f, proc = get("process") / 10.f, airAmt = get("air") / 100.f;
     const float depth = get("squeeze") / 100.f, warm = get("warm") / 100.f, mix = get("mix") / 100.f;
     const float push = juce::Decibels::decibelsToGain(get("push")), outG = juce::Decibels::decibelsToGain(get("out"));
-    const int mode = (int) get("mode");
+    const int mode = juce::jlimit(0, kNumStyles - 1, (int) get("mode"));
+    const SqStyle& sty = kStyles[mode];
     const float optoAmt = get("opto") / 100.f;
     float optoGrAcc = 0.f;
     const float x1 = 150.f, x2 = 2500.f;
@@ -87,7 +88,7 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
         {
             dry[c] = buf.getReadPointer(c)[i]; dryBuf[c][(size_t) i] = dry[c];
             float x = dry[c] * push;
-            if (mode == 2) x = subHp[c].processSample(x);   // Dance Master: keep sub rumble out of the compressors
+            if (sty.sub) x = subHp[c].processSample(x);   // keep sub rumble out of the compressors
             x *= optoG;
             float l1, r1, a, b, m, h;
             s1[c].processSample(0, x, l1, r1);
@@ -99,9 +100,9 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
         float pk[3] {};
         for (int c = 0; c < nch; ++c) { pk[0] = std::max(pk[0], std::abs(lo[c])); pk[1] = std::max(pk[1], std::abs(mid[c])); pk[2] = std::max(pk[2], std::abs(hi[c])); }
         float gDb[3];
-        const float g0 = sq[0].gain(pk[0], depth, mode, aA, aR, gDb[0], (float) fs, false);
-        const float g1 = sq[1].gain(pk[1], depth, mode, aA, aR, gDb[1], (float) fs, false);
-        const float g2 = sq[2].gain(pk[2], depth, mode, aA, aR, gDb[2], (float) fs, true);
+        const float g0 = sq[0].gain(pk[0], depth, sty, 0, (float) fs, gDb[0]);
+        const float g1 = sq[1].gain(pk[1], depth, sty, 1, (float) fs, gDb[1]);
+        const float g2 = sq[2].gain(pk[2], depth, sty, 2, (float) fs, gDb[2]);
         for (int k = 0; k < 3; ++k) { pkLv[k] = std::max(pkLv[k], pk[k]); gSum[k] += gDb[k]; }
         // bass harmonics from the mono low band
         const float mono = nch > 1 ? 0.5f * (lo[0] + lo[1]) : lo[0];
@@ -119,13 +120,13 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
         {
             float l = shelf[c].processSample(lo[c]) * g0 + bh;
             float m = mid[c] * g1;
-            if (mode == 2) { l = bandLimit(l, 0.85f); m = bandLimit(m, 0.8f); }
+            if (sty.limit) { l = bandLimit(l, 0.85f); m = bandLimit(m, 0.8f); }
             // time offsets: lows and mids arrive slightly after the highs
             auto& rl = ringLo[c]; auto& rm = ringMid[c];
             rl[(size_t) ringPos] = l; rm[(size_t) ringPos] = m;
             l = rl[(size_t) ((ringPos - dLoS + kRing) % kRing)]; m = rm[(size_t) ((ringPos - dMidS + kRing) % kRing)];
             float h = hi[c] * g2 * liftG;
-            if (mode == 2) h = bandLimit(h, 0.6f);
+            if (sty.limit) h = bandLimit(h, 0.6f);
             const float ex = airHp2[c].processSample(std::tanh(5.f * airHp1[c].processSample(hi[c])));
             h += ex * airAmt * 0.5f;
             float y = l + m + h;
@@ -150,26 +151,7 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
 std::vector<catfx::PanelSpec> Meowximizer::panels() const
 {
     return { { "Tone", { "contour", "bass", "process", "air" }, {}, 3.2f },
-             { "Squeeze", { "squeeze", "push", "opto" }, { "mode" }, 2.4f,
-          { { "Off", { { "mode", 0f }, { "squeeze", 0f }, { "push", 0f }, { "opto", 0f } } },
-          { "Gentle Glue", { { "mode", 0f }, { "squeeze", 25f }, { "push", 0f }, { "opto", 0f } } },
-          { "Smooth Leveller", { { "mode", 0f }, { "squeeze", 40f }, { "push", 2f }, { "opto", 0f } } },
-          { "Opto Soft Touch", { { "mode", 0f }, { "squeeze", 0f }, { "push", 0f }, { "opto", 30f } } },
-          { "Opto Lead", { { "mode", 0f }, { "squeeze", 15f }, { "push", 2f }, { "opto", 55f } } },
-          { "Opto Bass", { { "mode", 0f }, { "squeeze", 10f }, { "push", 0f }, { "opto", 60f } } },
-          { "Opto Heavy", { { "mode", 0f }, { "squeeze", 20f }, { "push", 3f }, { "opto", 85f } } },
-          { "OTT Light", { { "mode", 1f }, { "squeeze", 30f }, { "push", 0f }, { "opto", 0f } } },
-          { "OTT Classic", { { "mode", 1f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
-          { "OTT Heavy", { { "mode", 1f }, { "squeeze", 80f }, { "push", 5f }, { "opto", 0f } } },
-          { "Dance Master Gentle", { { "mode", 2f }, { "squeeze", 35f }, { "push", 0f }, { "opto", 0f } } },
-          { "Dance Master Lead", { { "mode", 2f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
-          { "Dance Master Bass", { { "mode", 2f }, { "squeeze", 60f }, { "push", 3f }, { "opto", 0f } } },
-          { "Dance Master Tight", { { "mode", 2f }, { "squeeze", 80f }, { "push", 4f }, { "opto", 0f } } },
-          { "Reverb Tamer", { { "mode", 2f }, { "squeeze", 65f }, { "push", 2f }, { "opto", 25f } } },
-          { "Loud and Thick", { { "mode", 2f }, { "squeeze", 50f }, { "push", 6f }, { "opto", 40f } } },
-          { "Opto into Dance Master", { { "mode", 2f }, { "squeeze", 45f }, { "push", 2f }, { "opto", 50f } } },
-          { "Goodizer Light", { { "mode", 1f }, { "squeeze", 20f }, { "push", 1f }, { "opto", 0f } } },
-          { "Goodizer Medium", { { "mode", 1f }, { "squeeze", 40f }, { "push", 3f }, { "opto", 0f } } } } },
+             { "Squeeze", { "squeeze", "push", "opto" }, { "mode" }, 2.4f },
              { "Saturation and ceiling", { "warm", "ceil" }, {}, 1.8f },
              { "Level", { "mix", "out" }, {}, 1.7f } };
 }
@@ -192,14 +174,21 @@ std::vector<FxBase::Preset> Meowximizer::presets() const
         { "Reverb Lead Control", { { "mode", 2.f }, { "squeeze", 65.f }, { "opto", 25.f }, { "air", 10.f }, { "process", 3.f }, { "warm", 15.f }, { "push", 2.f } } },
         { "Goodizer Light", { { "mode", 1.f }, { "squeeze", 20.f }, { "push", 1.f }, { "warm", 20.f }, { "air", 25.f }, { "contour", 3.f } } },
         { "Goodizer Medium", { { "mode", 1.f }, { "squeeze", 40.f }, { "push", 3.f }, { "warm", 30.f }, { "air", 30.f }, { "contour", 4.f }, { "bass", 30.f } } },
-        { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
-        { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
-        { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
-        { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
-        { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
-        { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
-        { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
-        { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+        { "Sub Bass Thick", { { "mode", 2.f }, { "opto", 50.f }, { "squeeze", 40.f }, { "push", 2.f }, { "contour", 5.f }, { "bass", 40.f }, { "process", 2.f }, { "air", 0.f }, { "warm", 30.f } } },
+        { "Pluck Punch", { { "mode", 2.f }, { "squeeze", 50.f }, { "push", 3.f }, { "process", 6.f }, { "air", 25.f }, { "warm", 20.f }, { "contour", 2.f } } },
+        { "Pad Smooth", { { "mode", 0.f }, { "opto", 35.f }, { "squeeze", 20.f }, { "process", 3.f }, { "air", 30.f }, { "warm", 15.f }, { "contour", 1.f } } },
+        { "Vocal Leveller", { { "mode", 0.f }, { "opto", 50.f }, { "squeeze", 15.f }, { "process", 5.f }, { "air", 45.f }, { "warm", 10.f }, { "contour", 1.f } } },
+        { "Hardstyle Kick Glue", { { "mode", 2.f }, { "squeeze", 55.f }, { "push", 4.f }, { "contour", 5.f }, { "bass", 35.f }, { "process", 5.f }, { "air", 15.f }, { "warm", 35.f } } },
+        { "Supersaw Control", { { "mode", 2.f }, { "squeeze", 60.f }, { "push", 2.f }, { "air", 5.f }, { "process", 3.f }, { "warm", 15.f }, { "opto", 20.f } } },
+        { "Mix Bus Glue", { { "mode", 0.f }, { "squeeze", 20.f }, { "opto", 25.f }, { "warm", 15.f }, { "process", 2.f }, { "air", 10.f }, { "contour", 1.f } } },
+        { "Glue Bus", { { "mode", 3.f }, { "squeeze", 40.f }, { "warm", 20.f }, { "process", 2.f }, { "air", 10.f } } },
+        { "Smooth Lead (Slow)", { { "mode", 4.f }, { "squeeze", 45.f }, { "opto", 35.f }, { "warm", 30.f }, { "contour", 2.f }, { "process", 3.f }, { "push", 2.f } } },
+        { "Punchy Drums", { { "mode", 5.f }, { "squeeze", 55.f }, { "push", 3.f }, { "process", 6.f }, { "warm", 25.f }, { "air", 20.f } } },
+        { "Tight Bass Lock", { { "mode", 6.f }, { "squeeze", 60.f }, { "push", 2.f }, { "contour", 4.f }, { "bass", 30.f }, { "warm", 25.f }, { "air", 0.f } } },
+        { "Quiet Lift", { { "mode", 7.f }, { "squeeze", 50.f }, { "air", 20.f }, { "process", 4.f }, { "warm", 10.f } } },
+        { "Hardstyle Lead Lock", { { "mode", 8.f }, { "squeeze", 60.f }, { "push", 4.f }, { "air", 20.f }, { "process", 5.f }, { "warm", 30.f }, { "ceil", -0.5f } } },
+        { "Harsh Highs Tamer", { { "mode", 9.f }, { "squeeze", 65.f }, { "opto", 20.f }, { "air", 5.f }, { "process", 3.f }, { "warm", 15.f }, { "push", 2.f } } },
+        { "Mastering Touch", { { "mode", 0.f }, { "squeeze", 15.f }, { "push", 1.f }, { "warm", 10.f }, { "air", 12.f }, { "process", 3.f }, { "contour", 1.f }, { "ceil", -0.3f } } } };
 }
 
 void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
