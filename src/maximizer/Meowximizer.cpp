@@ -146,7 +146,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
     if (idx == 0)       // approximate tone curve of the enhancer (dB against Hz)
     {
         const float contour = get("contour"), bassAmt = get("bass") / 100.f, airAmt = get("air") / 100.f;
-        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(14.f);
+        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         dbAxis(g, p, -6.f, 12.f, 6.f); freqAxis(g, p);
         const float lift = this->lift.load();
@@ -165,14 +165,14 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         g.setColour(green()); g.strokePath(c, juce::PathStrokeType(2.5f));
         g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
         g.drawText("approximate tone curve", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
-        g.drawText("high lift " + juce::String(lift, 1) + " dB   low delay " + juce::String(dLo.load(), 2) + " ms   mid delay " + juce::String(dMid.load(), 2) + " ms",
-                   (int) r.getX(), (int) r.getY() + 1, (int) r.getWidth() - 4, 12, juce::Justification::right);
+        g.drawText("lift " + juce::String(lift, 1) + " dB  delays " + juce::String(dLo.load(), 1) + " / " + juce::String(dMid.load(), 1) + " ms",
+                   p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
     }
     else if (idx == 1)  // three bands: level before (grey) and after the squeeze (colour), in dB
     {
         static const char* nm[] = { "Low", "Mid", "High" };
         const juce::Colour col[] = { blue(), green(), red() };
-        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(28.f);
+        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(28.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         dbAxis(g, p, -60.f, 0.f, 12.f);
         const float w = p.getWidth() / 3.f;
@@ -188,13 +188,13 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
             g.drawText(juce::String(nm[b]) + " " + juce::String(shown > 0.f ? "+" : "") + juce::String(shown, 1), c.withY(p.getBottom() + 2.f).withHeight(13.f).toNearestInt(), juce::Justification::centred);
         }
         g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
-        g.drawText("band level (grey), after squeeze (colour), gain in dB", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.drawText("bands: before (grey), after", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
     }
     else if (idx == 2) // saturation curve and the limiter ceiling
     {
         const float warm = get("warm") / 100.f, d = 1.f + warm * 1.5f, ceil = get("ceil");
         const float ceilLin = juce::Decibels::decibelsToGain(ceil);
-        auto p = r.withTrimmedLeft(8.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(14.f);
+        auto p = r.withTrimmedLeft(8.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         g.setColour(grid()); g.drawHorizontalLine((int) p.getCentreY(), p.getX(), p.getRight()); g.drawVerticalLine((int) p.getCentreX(), p.getY(), p.getBottom());
         auto Y = [&](float v) { return p.getCentreY() - juce::jlimit(-1.2f, 1.2f, v) / 1.2f * p.getHeight() * 0.5f; };
