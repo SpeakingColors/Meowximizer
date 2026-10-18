@@ -1,5 +1,6 @@
 #pragma once
 #include "common/FxBase.h"
+#include "common/Viz.h"
 
 // Meowximizer: sonic enhancer, bass enhancer and exciter in one.
 // 3 phase-aligned bands. Low: contour shelf, bass harmonics, time offset. Mid: time offset.
@@ -12,8 +13,10 @@ public:
     Meowximizer();
     void prepare(double sr, int maxBlock) override;
     void process(juce::AudioBuffer<float>&, const juce::AudioBuffer<float>*) override;
-    void paintViz(juce::Graphics&, juce::Rectangle<float>) override;
-    juce::String vizCaption() const override { return "Bands: level (grey), after squeeze (colour); gain shown in dB; delay in ms"; }
+    std::vector<catfx::PanelSpec> panels() const override;
+    void paintPanel(int index, juce::Graphics&, juce::Rectangle<float>) override;
+    std::vector<Preset> presets() const override;
+    juce::StringArray randomExclude() const override { return { "out", "ceil", "mix" }; }
 private:
     static constexpr int kRing = 1024;
     struct Squeezer
