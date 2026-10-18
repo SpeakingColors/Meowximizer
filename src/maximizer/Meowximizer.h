@@ -16,6 +16,7 @@ public:
     std::vector<catfx::PanelSpec> panels() const override;
     void paintPanel(int index, juce::Graphics&, juce::Rectangle<float>) override;
     std::vector<Preset> presets() const override;
+    std::vector<std::pair<juce::String, float>> choiceDefaults(const juce::String& id, int item) const override;
     juce::StringArray randomExclude() const override { return { "out", "ceil", "mix" }; }
 private:
     static constexpr int kRing = 1024;

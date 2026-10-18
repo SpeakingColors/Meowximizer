@@ -148,6 +148,17 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
     for (int k = 0; k < 3; ++k) { bandLv[k] = juce::Decibels::gainToDecibels(pkLv[k], -100.f); bandGain[k] = gSum[k] / (float) std::max(1, n); }
 }
 
+// Picking a squeeze style moves Squeeze, Push and Opto to the amounts that suit that style (you can still change them afterwards).
+std::vector<std::pair<juce::String, float>> Meowximizer::choiceDefaults(const juce::String& id, int item) const
+{
+    if (id != "mode") return {};
+    struct D { float squeeze, push, opto; };
+    static const D d[kNumStyles] = { { 25.f, 0.f, 0.f }, { 55.f, 3.f, 0.f }, { 55.f, 3.f, 0.f }, { 40.f, 0.f, 0.f }, { 45.f, 2.f, 35.f }, { 55.f, 3.f, 0.f },
+                                     { 60.f, 2.f, 0.f }, { 50.f, 0.f, 0.f }, { 60.f, 4.f, 0.f }, { 65.f, 2.f, 20.f }, { 30.f, 0.f, 75.f } };
+    const auto& v = d[juce::jlimit(0, kNumStyles - 1, item)];
+    return { { "squeeze", v.squeeze }, { "push", v.push }, { "opto", v.opto } };
+}
+
 std::vector<catfx::PanelSpec> Meowximizer::panels() const
 {
     return { { "Tone", { "contour", "bass", "process", "air" }, {}, 3.2f },
