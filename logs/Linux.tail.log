@@ -1,191 +1,400 @@
--- The C compiler identification is GNU 13.3.0
--- The CXX compiler identification is GNU 13.3.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
--- Checking for module 'alsa'
---   Found alsa, version 1.2.11
--- Checking for modules 'freetype2;fontconfig'
---   Found freetype2, version 26.1.20
---   Found fontconfig, version 2.15.0
--- Checking for module 'gl'
---   Found gl, version 1.2
--- Checking for module 'libcurl'
---   Package 'libcurl', required by 'virtual:world', not found
--- Checking for modules 'webkit2gtk-4.0;gtk+-x11-3.0'
---   Package 'webkit2gtk-4.0', required by 'virtual:world', not found
---   Package 'gtk+-x11-3.0', required by 'virtual:world', not found
--- Configuring juceaide
--- Building juceaide
--- Exporting juceaide
--- Testing juceaide
--- Finished setting up juceaide
--- Configuring done (81.7s)
--- Generating done (0.0s)
--- Build files have been written to: /home/runner/work/Meowximizer/Meowximizer/build
-[  1%] Building VST3 manifest helper for Meowximizer
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
-[  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
--- The CXX compiler identification is GNU 13.3.0
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Configuring done (0.2s)
--- Generating done (0.0s)
--- Build files have been written to: /home/runner/work/Meowximizer/Meowximizer/build/vst3_helpers/Meowximizer
-gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
-[ 50%] Building CXX object CMakeFiles/vst3_helper.dir/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.cpp.o
-[100%] Linking CXX executable vst3_helper
-[100%] Built target vst3_helper
-[  6%] Built target Meowximizer_vst3_helper
-[  8%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
-[  9%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
-[ 11%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
-[ 13%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
-[ 14%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics.cpp.o
-[ 16%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
-[ 18%] Building C object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
-[ 19%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_events/juce_events.cpp.o
-[ 21%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core.cpp.o
-[ 22%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
-[ 24%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
-[ 26%] Linking CXX static library libcat_ui.a
-[ 26%] Built target cat_ui
-[ 27%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxBase.cpp.o
-[ 29%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxEditor.cpp.o
-[ 31%] Building CXX object CMakeFiles/Meowximizer.dir/src/Plugins.cpp.o
-[ 32%] Building CXX object CMakeFiles/Meowximizer.dir/src/maximizer/Meowximizer.cpp.o
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/Plugins.cpp:2:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:41:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   41 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:1:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:41:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   41 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:3,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/Plugins.cpp:3:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:3:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.cpp:1:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:41:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   41 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.cpp:1:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:41:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   41 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:157:63: error: unable to find numeric literal operator ‘operator""f’
+  157 |           { "Opto Soft Touch", { { "mode", 0f }, { "squeeze", 0f }, { "push", 0f }, { "opto", 30f } } },
+      |                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:157:79: error: unable to find numeric literal operator ‘operator""f’
+  157 |           { "Opto Soft Touch", { { "mode", 0f }, { "squeeze", 0f }, { "push", 0f }, { "opto", 30f } } },
+      |                                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:157:95: error: unable to find numeric literal operator ‘operator""f’
+  157 |           { "Opto Soft Touch", { { "mode", 0f }, { "squeeze", 0f }, { "push", 0f }, { "opto", 30f } } },
+      |                                                                                               ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:158:38: error: unable to find numeric literal operator ‘operator""f’
+  158 |           { "Opto Lead", { { "mode", 0f }, { "squeeze", 15f }, { "push", 2f }, { "opto", 55f } } },
+      |                                      ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:158:57: error: unable to find numeric literal operator ‘operator""f’
+  158 |           { "Opto Lead", { { "mode", 0f }, { "squeeze", 15f }, { "push", 2f }, { "opto", 55f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:158:74: error: unable to find numeric literal operator ‘operator""f’
+  158 |           { "Opto Lead", { { "mode", 0f }, { "squeeze", 15f }, { "push", 2f }, { "opto", 55f } } },
+      |                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:158:90: error: unable to find numeric literal operator ‘operator""f’
+  158 |           { "Opto Lead", { { "mode", 0f }, { "squeeze", 15f }, { "push", 2f }, { "opto", 55f } } },
+      |                                                                                          ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:159:38: error: unable to find numeric literal operator ‘operator""f’
+  159 |           { "Opto Bass", { { "mode", 0f }, { "squeeze", 10f }, { "push", 0f }, { "opto", 60f } } },
+      |                                      ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:159:57: error: unable to find numeric literal operator ‘operator""f’
+  159 |           { "Opto Bass", { { "mode", 0f }, { "squeeze", 10f }, { "push", 0f }, { "opto", 60f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:159:74: error: unable to find numeric literal operator ‘operator""f’
+  159 |           { "Opto Bass", { { "mode", 0f }, { "squeeze", 10f }, { "push", 0f }, { "opto", 60f } } },
+      |                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:159:90: error: unable to find numeric literal operator ‘operator""f’
+  159 |           { "Opto Bass", { { "mode", 0f }, { "squeeze", 10f }, { "push", 0f }, { "opto", 60f } } },
+      |                                                                                          ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:160:39: error: unable to find numeric literal operator ‘operator""f’
+  160 |           { "Opto Heavy", { { "mode", 0f }, { "squeeze", 20f }, { "push", 3f }, { "opto", 85f } } },
+      |                                       ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:160:58: error: unable to find numeric literal operator ‘operator""f’
+  160 |           { "Opto Heavy", { { "mode", 0f }, { "squeeze", 20f }, { "push", 3f }, { "opto", 85f } } },
+      |                                                          ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:160:75: error: unable to find numeric literal operator ‘operator""f’
+  160 |           { "Opto Heavy", { { "mode", 0f }, { "squeeze", 20f }, { "push", 3f }, { "opto", 85f } } },
+      |                                                                           ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:160:91: error: unable to find numeric literal operator ‘operator""f’
+  160 |           { "Opto Heavy", { { "mode", 0f }, { "squeeze", 20f }, { "push", 3f }, { "opto", 85f } } },
+      |                                                                                           ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:161:38: error: unable to find numeric literal operator ‘operator""f’
+  161 |           { "OTT Light", { { "mode", 1f }, { "squeeze", 30f }, { "push", 0f }, { "opto", 0f } } },
+      |                                      ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:161:57: error: unable to find numeric literal operator ‘operator""f’
+  161 |           { "OTT Light", { { "mode", 1f }, { "squeeze", 30f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:161:74: error: unable to find numeric literal operator ‘operator""f’
+  161 |           { "OTT Light", { { "mode", 1f }, { "squeeze", 30f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:161:90: error: unable to find numeric literal operator ‘operator""f’
+  161 |           { "OTT Light", { { "mode", 1f }, { "squeeze", 30f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:162:40: error: unable to find numeric literal operator ‘operator""f’
+  162 |           { "OTT Classic", { { "mode", 1f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                        ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:162:59: error: unable to find numeric literal operator ‘operator""f’
+  162 |           { "OTT Classic", { { "mode", 1f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                           ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:162:76: error: unable to find numeric literal operator ‘operator""f’
+  162 |           { "OTT Classic", { { "mode", 1f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                            ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:162:92: error: unable to find numeric literal operator ‘operator""f’
+  162 |           { "OTT Classic", { { "mode", 1f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                                            ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:163:38: error: unable to find numeric literal operator ‘operator""f’
+  163 |           { "OTT Heavy", { { "mode", 1f }, { "squeeze", 80f }, { "push", 5f }, { "opto", 0f } } },
+      |                                      ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:163:57: error: unable to find numeric literal operator ‘operator""f’
+  163 |           { "OTT Heavy", { { "mode", 1f }, { "squeeze", 80f }, { "push", 5f }, { "opto", 0f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:163:74: error: unable to find numeric literal operator ‘operator""f’
+  163 |           { "OTT Heavy", { { "mode", 1f }, { "squeeze", 80f }, { "push", 5f }, { "opto", 0f } } },
+      |                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:163:90: error: unable to find numeric literal operator ‘operator""f’
+  163 |           { "OTT Heavy", { { "mode", 1f }, { "squeeze", 80f }, { "push", 5f }, { "opto", 0f } } },
+      |                                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:164:48: error: unable to find numeric literal operator ‘operator""f’
+  164 |           { "Dance Master Gentle", { { "mode", 2f }, { "squeeze", 35f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:164:67: error: unable to find numeric literal operator ‘operator""f’
+  164 |           { "Dance Master Gentle", { { "mode", 2f }, { "squeeze", 35f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                                   ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:164:84: error: unable to find numeric literal operator ‘operator""f’
+  164 |           { "Dance Master Gentle", { { "mode", 2f }, { "squeeze", 35f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                                                    ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:164:100: error: unable to find numeric literal operator ‘operator""f’
+  164 |           { "Dance Master Gentle", { { "mode", 2f }, { "squeeze", 35f }, { "push", 0f }, { "opto", 0f } } },
+      |                                                                                                    ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:165:46: error: unable to find numeric literal operator ‘operator""f’
+  165 |           { "Dance Master Lead", { { "mode", 2f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:165:65: error: unable to find numeric literal operator ‘operator""f’
+  165 |           { "Dance Master Lead", { { "mode", 2f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:165:82: error: unable to find numeric literal operator ‘operator""f’
+  165 |           { "Dance Master Lead", { { "mode", 2f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:165:98: error: unable to find numeric literal operator ‘operator""f’
+  165 |           { "Dance Master Lead", { { "mode", 2f }, { "squeeze", 55f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:166:46: error: unable to find numeric literal operator ‘operator""f’
+  166 |           { "Dance Master Bass", { { "mode", 2f }, { "squeeze", 60f }, { "push", 3f }, { "opto", 0f } } },
+      |                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:166:65: error: unable to find numeric literal operator ‘operator""f’
+  166 |           { "Dance Master Bass", { { "mode", 2f }, { "squeeze", 60f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:166:82: error: unable to find numeric literal operator ‘operator""f’
+  166 |           { "Dance Master Bass", { { "mode", 2f }, { "squeeze", 60f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:166:98: error: unable to find numeric literal operator ‘operator""f’
+  166 |           { "Dance Master Bass", { { "mode", 2f }, { "squeeze", 60f }, { "push", 3f }, { "opto", 0f } } },
+      |                                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:167:47: error: unable to find numeric literal operator ‘operator""f’
+  167 |           { "Dance Master Tight", { { "mode", 2f }, { "squeeze", 80f }, { "push", 4f }, { "opto", 0f } } },
+      |                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:167:66: error: unable to find numeric literal operator ‘operator""f’
+  167 |           { "Dance Master Tight", { { "mode", 2f }, { "squeeze", 80f }, { "push", 4f }, { "opto", 0f } } },
+      |                                                                  ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:167:83: error: unable to find numeric literal operator ‘operator""f’
+  167 |           { "Dance Master Tight", { { "mode", 2f }, { "squeeze", 80f }, { "push", 4f }, { "opto", 0f } } },
+      |                                                                                   ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:167:99: error: unable to find numeric literal operator ‘operator""f’
+  167 |           { "Dance Master Tight", { { "mode", 2f }, { "squeeze", 80f }, { "push", 4f }, { "opto", 0f } } },
+      |                                                                                                   ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:168:41: error: unable to find numeric literal operator ‘operator""f’
+  168 |           { "Reverb Tamer", { { "mode", 2f }, { "squeeze", 65f }, { "push", 2f }, { "opto", 25f } } },
+      |                                         ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:168:60: error: unable to find numeric literal operator ‘operator""f’
+  168 |           { "Reverb Tamer", { { "mode", 2f }, { "squeeze", 65f }, { "push", 2f }, { "opto", 25f } } },
+      |                                                            ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:168:77: error: unable to find numeric literal operator ‘operator""f’
+  168 |           { "Reverb Tamer", { { "mode", 2f }, { "squeeze", 65f }, { "push", 2f }, { "opto", 25f } } },
+      |                                                                             ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:168:93: error: unable to find numeric literal operator ‘operator""f’
+  168 |           { "Reverb Tamer", { { "mode", 2f }, { "squeeze", 65f }, { "push", 2f }, { "opto", 25f } } },
+      |                                                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:169:43: error: unable to find numeric literal operator ‘operator""f’
+  169 |           { "Loud and Thick", { { "mode", 2f }, { "squeeze", 50f }, { "push", 6f }, { "opto", 40f } } },
+      |                                           ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:169:62: error: unable to find numeric literal operator ‘operator""f’
+  169 |           { "Loud and Thick", { { "mode", 2f }, { "squeeze", 50f }, { "push", 6f }, { "opto", 40f } } },
+      |                                                              ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:169:79: error: unable to find numeric literal operator ‘operator""f’
+  169 |           { "Loud and Thick", { { "mode", 2f }, { "squeeze", 50f }, { "push", 6f }, { "opto", 40f } } },
+      |                                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:169:95: error: unable to find numeric literal operator ‘operator""f’
+  169 |           { "Loud and Thick", { { "mode", 2f }, { "squeeze", 50f }, { "push", 6f }, { "opto", 40f } } },
+      |                                                                                               ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:170:51: error: unable to find numeric literal operator ‘operator""f’
+  170 |           { "Opto into Dance Master", { { "mode", 2f }, { "squeeze", 45f }, { "push", 2f }, { "opto", 50f } } },
+      |                                                   ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:170:70: error: unable to find numeric literal operator ‘operator""f’
+  170 |           { "Opto into Dance Master", { { "mode", 2f }, { "squeeze", 45f }, { "push", 2f }, { "opto", 50f } } },
+      |                                                                      ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:170:87: error: unable to find numeric literal operator ‘operator""f’
+  170 |           { "Opto into Dance Master", { { "mode", 2f }, { "squeeze", 45f }, { "push", 2f }, { "opto", 50f } } },
+      |                                                                                       ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:170:103: error: unable to find numeric literal operator ‘operator""f’
+  170 |           { "Opto into Dance Master", { { "mode", 2f }, { "squeeze", 45f }, { "push", 2f }, { "opto", 50f } } },
+      |                                                                                                       ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:171:43: error: unable to find numeric literal operator ‘operator""f’
+  171 |           { "Goodizer Light", { { "mode", 1f }, { "squeeze", 20f }, { "push", 1f }, { "opto", 0f } } },
+      |                                           ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:171:62: error: unable to find numeric literal operator ‘operator""f’
+  171 |           { "Goodizer Light", { { "mode", 1f }, { "squeeze", 20f }, { "push", 1f }, { "opto", 0f } } },
+      |                                                              ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:171:79: error: unable to find numeric literal operator ‘operator""f’
+  171 |           { "Goodizer Light", { { "mode", 1f }, { "squeeze", 20f }, { "push", 1f }, { "opto", 0f } } },
+      |                                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:171:95: error: unable to find numeric literal operator ‘operator""f’
+  171 |           { "Goodizer Light", { { "mode", 1f }, { "squeeze", 20f }, { "push", 1f }, { "opto", 0f } } },
+      |                                                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:172:44: error: unable to find numeric literal operator ‘operator""f’
+  172 |           { "Goodizer Medium", { { "mode", 1f }, { "squeeze", 40f }, { "push", 3f }, { "opto", 0f } } } } },
+      |                                            ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:172:63: error: unable to find numeric literal operator ‘operator""f’
+  172 |           { "Goodizer Medium", { { "mode", 1f }, { "squeeze", 40f }, { "push", 3f }, { "opto", 0f } } } } },
+      |                                                               ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:172:80: error: unable to find numeric literal operator ‘operator""f’
+  172 |           { "Goodizer Medium", { { "mode", 1f }, { "squeeze", 40f }, { "push", 3f }, { "opto", 0f } } } } },
+      |                                                                                ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:172:96: error: unable to find numeric literal operator ‘operator""f’
+  172 |           { "Goodizer Medium", { { "mode", 1f }, { "squeeze", 40f }, { "push", 3f }, { "opto", 0f } } } } },
+      |                                                                                                ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:174:54: error: could not convert ‘{{"Tone", {"contour", "bass", "process", "air"}, <brace-enclosed initializer list>(), 3.20000005e+0f}, {"Squeeze", {"squeeze", "push", "opto"}, {"mode"}, 2.4000001e+0f, {{"Off", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Gentle Glue", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Smooth Leveller", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Opto Soft Touch", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Opto Lead", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Opto Bass", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Opto Heavy", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"OTT Light", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"OTT Classic", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"OTT Heavy", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Dance Master Gentle", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Dance Master Lead", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Dance Master Bass", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Dance Master Tight", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Reverb Tamer", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Loud and Thick", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Opto into Dance Master", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Goodizer Light", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}, {"Goodizer Medium", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"opto", <expression error>}}}}}, {"Saturation and ceiling", {"warm", "ceil"}, <brace-enclosed initializer list>(), 1.79999995e+0f}, {"Level", {"mix", "out"}, <brace-enclosed initializer list>(), 1.70000005e+0f}}’ from ‘<brace-enclosed initializer list>’ to ‘std::vector<catfx::PanelSpec>’
+  174 |              { "Level", { "mix", "out" }, {}, 1.7f } };
+      |                                                      ^
+      |                                                      |
+      |                                                      <brace-enclosed initializer list>
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp: In member function ‘virtual std::vector<catfx::FxBase::Preset> Meowximizer::presets() const’:
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:41: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                         ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:57: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:77: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:94: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:113: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                                                 ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:129: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:149: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                                                                                     ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:164: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                                                                                                    ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:195:180: error: unable to find numeric literal operator ‘operator""f’
+  195 |         { "Sub Bass Thick", { { "mode", 2f }, { "opto", 50f }, { "squeeze", 40f }, { "push", 2f }, { "contour", 5f }, { "bass", 40f }, { "process", 2f }, { "air", 0f }, { "warm", 30f } } },
+      |                                                                                                                                                                                    ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:38: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                      ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:57: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:74: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:93: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                                                             ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:108: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                                                                            ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:125: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                                                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:196:145: error: unable to find numeric literal operator ‘operator""f’
+  196 |         { "Pluck Punch", { { "mode", 2f }, { "squeeze", 50f }, { "push", 3f }, { "process", 6f }, { "air", 25f }, { "warm", 20f }, { "contour", 2f } } },
+      |                                                                                                                                                 ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:37: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                     ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:53: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                     ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:73: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:93: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                                                             ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:108: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                                                                            ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:125: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                                                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:197:145: error: unable to find numeric literal operator ‘operator""f’
+  197 |         { "Pad Smooth", { { "mode", 0f }, { "opto", 35f }, { "squeeze", 20f }, { "process", 3f }, { "air", 30f }, { "warm", 15f }, { "contour", 1f } } },
+      |                                                                                                                                                 ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:41: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                         ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:57: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:77: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:97: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                                                                 ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:112: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                                                                                ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:129: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                                                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:198:149: error: unable to find numeric literal operator ‘operator""f’
+  198 |         { "Vocal Leveller", { { "mode", 0f }, { "opto", 50f }, { "squeeze", 15f }, { "process", 5f }, { "air", 45f }, { "warm", 10f }, { "contour", 1f } } },
+      |                                                                                                                                                     ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:46: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:65: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:82: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:101: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                                     ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:117: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                                                     ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:137: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                                                                         ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:152: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                                                                                        ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:199:169: error: unable to find numeric literal operator ‘operator""f’
+  199 |         { "Hardstyle Kick Glue", { { "mode", 2f }, { "squeeze", 55f }, { "push", 4f }, { "contour", 5f }, { "bass", 35f }, { "process", 5f }, { "air", 15f }, { "warm", 35f } } },
+      |                                                                                                                                                                         ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:43: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                           ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:62: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                              ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:79: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                                               ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:94: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:113: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                                                                                 ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:129: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                                                                                                 ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:200:146: error: unable to find numeric literal operator ‘operator""f’
+  200 |         { "Supersaw Control", { { "mode", 2f }, { "squeeze", 60f }, { "push", 2f }, { "air", 5f }, { "process", 3f }, { "warm", 15f }, { "opto", 20f } } },
+      |                                                                                                                                                  ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:39: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                       ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:58: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                          ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:75: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                                           ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:92: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                                                            ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:112: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                                                                                ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:127: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                                                                                               ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:201:147: error: unable to find numeric literal operator ‘operator""f’
+  201 |         { "Mix Bus Glue", { { "mode", 0f }, { "squeeze", 20f }, { "opto", 25f }, { "warm", 15f }, { "process", 2f }, { "air", 10f }, { "contour", 1f } } },
+      |                                                                                                                                                   ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:42: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                          ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:61: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                             ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:78: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                              ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:94: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                                              ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:110: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                                                              ^~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:130: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                                                                                  ^~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:149: error: unable to find numeric literal operator ‘operator""f’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                                                                                                     ^~
 In file included from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:3:
 /home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
 /home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
    91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
       |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:3,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.cpp:2:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:202:177: error: could not convert ‘{{"Init", <brace-enclosed initializer list>()}, {"Loud Master", {{"push", 6.0e+0f}, {"squeeze", 4.0e+1f}, {"air", 3.0e+1f}, {"warm", 2.5e+1f}, {"ceil", -5.0e-1f}}}, {"Warm Glue", {{"contour", 4.0e+0f}, {"squeeze", 2.5e+1f}, {"warm", 4.5e+1f}, {"air", 1.5e+1f}}}, {"OTT Hardcore", {{"mode", 1.0e+0f}, {"squeeze", 6.5e+1f}, {"push", 4.0e+0f}, {"air", 4.0e+1f}, {"bass", 4.0e+1f}, {"mix", 7.0e+1f}}}, {"Vocal Air", {{"process", 6.0e+0f}, {"air", 5.5e+1f}, {"contour", 1.0e+0f}, {"squeeze", 2.0e+1f}}}, {"Bass Boost", {{"contour", 6.0e+0f}, {"bass", 5.5e+1f}, {"squeeze", 2.5e+1f}}}, {"Drum Smack", {{"process", 7.0e+0f}, {"squeeze", 5.0e+1f}, {"warm", 3.5e+1f}, {"air", 2.0e+1f}}}, {"Thick and Smooth", {{"mode", 2.0e+0f}, {"opto", 4.5e+1f}, {"squeeze", 3.5e+1f}, {"push", 2.0e+0f}, {"warm", 3.0e+1f}, {"process", 4.0e+0f}, {"contour", 3.0e+0f}, {"air", 1.5e+1f}}}, {"LA-2A Lead Thicken", {{"mode", 0.0f}, {"opto", 5.5e+1f}, {"squeeze", 1.5e+1f}, {"push", 2.0e+0f}, {"warm", 3.5e+1f}, {"contour", 2.0e+0f}, {"air", 1.0e+1f}, {"bass", 1.0e+1f}, {"process", 3.0e+0f}}}, {"LA-2A Bass Smooth", {{"mode", 0.0f}, {"opto", 6.0e+1f}, {"squeeze", 1.0e+1f}, {"warm", 3.0e+1f}, {"contour", 3.0e+0f}, {"bass", 3.0e+1f}, {"air", 5.0e+0f}, {"process", 2.0e+0f}}}, {"Dance Master Lead", {{"mode", 2.0e+0f}, {"squeeze", 5.5e+1f}, {"push", 3.0e+0f}, {"air", 2.0e+1f}, {"process", 4.0e+0f}, {"warm", 2.0e+1f}, {"ceil", -5.0e-1f}}}, {"Dance Master Bass", {{"mode", 2.0e+0f}, {"squeeze", 6.0e+1f}, {"push", 3.0e+0f}, {"contour", 4.0e+0f}, {"bass", 3.5e+1f}, {"process", 3.0e+0f}, {"air", 5.0e+0f}, {"warm", 2.5e+1f}}}, {"Reverb Lead Control", {{"mode", 2.0e+0f}, {"squeeze", 6.5e+1f}, {"opto", 2.5e+1f}, {"air", 1.0e+1f}, {"process", 3.0e+0f}, {"warm", 1.5e+1f}, {"push", 2.0e+0f}}}, {"Goodizer Light", {{"mode", 1.0e+0f}, {"squeeze", 2.0e+1f}, {"push", 1.0e+0f}, {"warm", 2.0e+1f}, {"air", 2.5e+1f}, {"contour", 3.0e+0f}}}, {"Goodizer Medium", {{"mode", 1.0e+0f}, {"squeeze", 4.0e+1f}, {"push", 3.0e+0f}, {"warm", 3.0e+1f}, {"air", 3.0e+1f}, {"contour", 4.0e+0f}, {"bass", 3.0e+1f}}}, {"Sub Bass Thick", {{"mode", <expression error>}, {"opto", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"contour", <expression error>}, {"bass", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"warm", <expression error>}}}, {"Pluck Punch", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"warm", <expression error>}, {"contour", <expression error>}}}, {"Pad Smooth", {{"mode", <expression error>}, {"opto", <expression error>}, {"squeeze", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"warm", <expression error>}, {"contour", <expression error>}}}, {"Vocal Leveller", {{"mode", <expression error>}, {"opto", <expression error>}, {"squeeze", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"warm", <expression error>}, {"contour", <expression error>}}}, {"Hardstyle Kick Glue", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"contour", <expression error>}, {"bass", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"warm", <expression error>}}}, {"Supersaw Control", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"air", <expression error>}, {"process", <expression error>}, {"warm", <expression error>}, {"opto", <expression error>}}}, {"Mix Bus Glue", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"opto", <expression error>}, {"warm", <expression error>}, {"process", <expression error>}, {"air", <expression error>}, {"contour", <expression error>}}}, {"Mastering Touch", {{"mode", <expression error>}, {"squeeze", <expression error>}, {"push", <expression error>}, {"warm", <expression error>}, {"air", <expression error>}, {"process", <expression error>}, {"contour", <expression error>}, {"ceil", -3.00000012e-1f}}}}’ from ‘<brace-enclosed initializer list>’ to ‘std::vector<catfx::FxBase::Preset>’
+  202 |         { "Mastering Touch", { { "mode", 0f }, { "squeeze", 15f }, { "push", 1f }, { "warm", 10f }, { "air", 12f }, { "process", 3f }, { "contour", 1f }, { "ceil", -0.3f } } } };
+      |                                                                                                                                                                                 ^
+      |                                                                                                                                                                                 |
+      |                                                                                                                                                                                 <brace-enclosed initializer list>
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp: In member function ‘virtual void Meowximizer::paintPanel(int, juce::Graphics&, juce::Rectangle<float>)’:
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:187:21: warning: declaration of ‘lift’ shadows a member of ‘Meowximizer’ [-Wshadow]
-  187 |         const float lift = this->lift.load();
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:214:21: warning: declaration of ‘lift’ shadows a member of ‘Meowximizer’ [-Wshadow]
+  214 |         const float lift = this->lift.load();
       |                     ^~~~
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:87:75: note: shadowed declaration is here
    87 |     std::atomic<float> bandLv[3], bandGain[3], dLo { 0.f }, dMid { 0.f }, lift { 0.f };
       |                                                                           ^~~~
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:194:25: warning: declaration of ‘liftDb’ shadows a member of ‘Meowximizer’ [-Wshadow]
-  194 |             const float liftDb = lift / std::sqrt(1.f + std::pow(2500.f / hz, 4.f));
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:221:25: warning: declaration of ‘liftDb’ shadows a member of ‘Meowximizer’ [-Wshadow]
+  221 |             const float liftDb = lift / std::sqrt(1.f + std::pow(2500.f / hz, 4.f));
       |                         ^~~~~~
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:86:58: note: shadowed declaration is here
    86 |     float bassEnv = 0.f, bassDc = 0.f, midEnvDb = -60.f, liftDb = 0.f;
       |                                                          ^~~~~~
 [ 34%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
-[ 36%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.cpp.o
-[ 37%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
-[ 39%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
-[ 40%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
-[ 42%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
-[ 44%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
-[ 45%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.cpp.o
-[ 47%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
-[ 49%] Building C object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
-[ 50%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_events/juce_events.cpp.o
-[ 52%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_core/juce_core.cpp.o
-[ 54%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
-[ 55%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
-[ 57%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.cpp.o
-[ 59%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
-[ 60%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
-[ 62%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.cpp.o
-[ 63%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.cpp.o
-[ 65%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.cpp.o
-[ 67%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.cpp.o
-[ 68%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.cpp.o
-[ 70%] Linking CXX static library Meowximizer_artefacts/Release/libMeowximizer_SharedCode.a
-[ 70%] Built target Meowximizer
-[ 72%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
-[ 73%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
-[ 75%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 77%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 78%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 80%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 81%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 83%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 86%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 86%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 88%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 90%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 91%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 93%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 95%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 96%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 98%] Linking CXX executable Meowximizer_artefacts/Release/Standalone/Meowximizer
-[ 98%] Built target Meowximizer_Standalone
-[100%] Linking CXX shared module Meowximizer_artefacts/Release/VST3/Meowximizer.vst3/Contents/x86_64-linux/Meowximizer.so
-removing moduleinfo.json
-creating /home/runner/work/Meowximizer/Meowximizer/build/Meowximizer_artefacts/Release/VST3/Meowximizer.vst3/Contents/Resources/moduleinfo.json
-[100%] Built target Meowximizer_VST3
+gmake[2]: *** [CMakeFiles/Meowximizer.dir/build.make:121: CMakeFiles/Meowximizer.dir/src/maximizer/Meowximizer.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:201: CMakeFiles/Meowximizer.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
