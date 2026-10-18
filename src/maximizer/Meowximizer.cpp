@@ -188,6 +188,8 @@ std::vector<FxBase::Preset> Meowximizer::presets() const
         { "Quiet Lift", { { "mode", 7.f }, { "squeeze", 50.f }, { "air", 20.f }, { "process", 4.f }, { "warm", 10.f } } },
         { "Hardstyle Lead Lock", { { "mode", 8.f }, { "squeeze", 60.f }, { "push", 4.f }, { "air", 20.f }, { "process", 5.f }, { "warm", 30.f }, { "ceil", -0.5f } } },
         { "Harsh Highs Tamer", { { "mode", 9.f }, { "squeeze", 65.f }, { "opto", 20.f }, { "air", 5.f }, { "process", 3.f }, { "warm", 15.f }, { "push", 2.f } } },
+        { "Thick Supersaw (LA-2A)", { { "mode", 0.f }, { "squeeze", 0.f }, { "opto", 75.f }, { "warm", 35.f }, { "process", 3.f }, { "contour", 1.f }, { "air", 10.f }, { "bass", 0.f } } },
+        { "Kick Beef (Parallel)", { { "mode", 5.f }, { "squeeze", 70.f }, { "push", 2.f }, { "mix", 50.f }, { "contour", 4.f }, { "bass", 20.f }, { "process", 2.f }, { "air", 0.f }, { "warm", 25.f } } },
         { "Mastering Touch", { { "mode", 0.f }, { "squeeze", 15.f }, { "push", 1.f }, { "warm", 10.f }, { "air", 12.f }, { "process", 3.f }, { "contour", 1.f }, { "ceil", -0.3f } } } };
 }
 
