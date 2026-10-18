@@ -163,7 +163,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
             i ? c.lineTo(x, y) : c.startNewSubPath(x, y);
         }
         g.setColour(green()); g.strokePath(c, juce::PathStrokeType(2.5f));
-        g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
+        g.setColour(green()); g.setFont(juce::FontOptions(11.f));
         g.drawText("approximate tone curve", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.drawText("lift " + juce::String(lift, 1) + " dB  delays " + juce::String(dLo.load(), 1) + " / " + juce::String(dMid.load(), 1) + " ms",
                    p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
@@ -209,7 +209,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         g.setColour(accent()); g.strokePath(c, juce::PathStrokeType(2.5f));
         const float lv = juce::jlimit(0.f, 1.f, inLevel.load()), yy = juce::jlimit(-ceilLin, ceilLin, (1.f - warm) * lv + warm * std::tanh(d * lv) / d);
         g.setColour(juce::Colours::white); g.fillEllipse(X(lv) - 3.f, Y(yy) - 3.f, 6.f, 6.f);
-        g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
+        g.setColour(accent()); g.setFont(juce::FontOptions(11.f));
         g.drawText("saturation and limiter ceiling", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.setColour(red()); g.drawText("ceiling " + juce::String(ceil, 1) + " dB", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
         g.setColour(dim()); g.drawText("input level", p.toNearestInt().withY((int) p.getBottom() + 1).withHeight(12), juce::Justification::centred);
