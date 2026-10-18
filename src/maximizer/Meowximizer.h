@@ -24,7 +24,7 @@ private:
     // att/rel (ms) with relAuto (extra ms of release per dB of reduction); floor: share of the effect that is always on when Squeeze > 0;
     // off: threshold offset per band (low, mid, high); limit: soft limiter on each band; sub: 22 Hz high-pass before the squeeze.
     struct SqStyle { float thr, ratio, up, lo, knee, att, rel, relAuto, floor; float off[3]; bool limit, sub; };
-    static constexpr int kNumStyles = 10;
+    static constexpr int kNumStyles = 11;
     static constexpr SqStyle kStyles[kNumStyles] = {
         { -14.f, 2.5f, 0.20f, -52.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Gentle
         { -22.f, 5.0f, 0.45f, -48.f,  0.f,  4.f,  80.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // OTT style
@@ -35,7 +35,8 @@ private:
         { -20.f, 6.0f, 0.00f, -60.f,  3.f,  1.f,  50.f, 10.f, 0.40f, { 0.f, 0.f, -2.f },  true,  true  },   // Tight Lock
         { -24.f, 1.5f, 0.60f, -55.f,  6.f,  5.f, 120.f,  0.f, 0.00f, { 0.f, 0.f, 0.f },   false, false },   // Lift (brings quiet parts up)
         { -20.f, 4.0f, 0.10f, -60.f,  4.f,  3.f,  30.f, 15.f, 0.40f, { 2.f, 0.f, -3.f },  true,  true  },   // Hardstyle Lock
-        { -16.f, 4.0f, 0.00f, -60.f,  8.f,  3.f,  60.f, 12.f, 0.40f, { 0.f, -2.f, -9.f },  true,  true  } }; // Highs Tamer
+        { -16.f, 4.0f, 0.00f, -60.f,  8.f,  3.f,  60.f, 12.f, 0.40f, { 0.f, -2.f, -9.f },  true,  true  },   // Highs Tamer
+        { -20.f, 2.0f, 0.00f, -60.f, 12.f, 10.f, 200.f, 20.f, 0.30f, { 0.f, 0.f, -2.f }, false, false } }; // Thick Supersaw (slow, soft, opto-like partner)
     struct Squeezer
     {
         float env = 0.f, grAuto = 0.f;

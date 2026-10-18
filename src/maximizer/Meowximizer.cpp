@@ -24,7 +24,7 @@ Meowximizer::Meowximizer()
           { "ceil", "Ceiling", " dB", -12.f, 0.f, -0.3f, 0.f, "Ceiling: the output limiter never lets the signal go above this level." },
           { "mix", "Mix", " %", 0.f, 100.f, 100.f, 0.f, "Mix: dry/wet blend for parallel processing." },
           { "out", "Output", " dB", -12.f, 12.f, 0.f, 0.f, "Output: final level. Match it with the bypassed level when comparing." } },
-        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer" }, 0, "Squeeze style: Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb)." } })
+        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer", "Thick Supersaw" }, 0, "Squeeze style: Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb). Thick Supersaw is a slow, soft squeeze that pairs with the Opto knob to fatten supersaw leads." } })
 {
     for (int i = 0; i < 3; ++i) { bandLv[i] = -100.f; bandGain[i] = 0.f; }
 }
@@ -188,7 +188,7 @@ std::vector<FxBase::Preset> Meowximizer::presets() const
         { "Quiet Lift", { { "mode", 7.f }, { "squeeze", 50.f }, { "air", 20.f }, { "process", 4.f }, { "warm", 10.f } } },
         { "Hardstyle Lead Lock", { { "mode", 8.f }, { "squeeze", 60.f }, { "push", 4.f }, { "air", 20.f }, { "process", 5.f }, { "warm", 30.f }, { "ceil", -0.5f } } },
         { "Harsh Highs Tamer", { { "mode", 9.f }, { "squeeze", 65.f }, { "opto", 20.f }, { "air", 5.f }, { "process", 3.f }, { "warm", 15.f }, { "push", 2.f } } },
-        { "Thick Supersaw (LA-2A)", { { "mode", 0.f }, { "squeeze", 0.f }, { "opto", 75.f }, { "warm", 35.f }, { "process", 3.f }, { "contour", 1.f }, { "air", 10.f }, { "bass", 0.f } } },
+        { "Thick Supersaw", { { "mode", 10.f }, { "squeeze", 30.f }, { "opto", 75.f }, { "warm", 35.f }, { "process", 3.f }, { "contour", 1.f }, { "air", 10.f }, { "bass", 0.f } } },
         { "Kick Beef (Parallel)", { { "mode", 5.f }, { "squeeze", 70.f }, { "push", 2.f }, { "mix", 50.f }, { "contour", 4.f }, { "bass", 20.f }, { "process", 2.f }, { "air", 0.f }, { "warm", 25.f } } },
         { "Mastering Touch", { { "mode", 0.f }, { "squeeze", 15.f }, { "push", 1.f }, { "warm", 10.f }, { "air", 12.f }, { "process", 3.f }, { "contour", 1.f }, { "ceil", -0.3f } } } };
 }
