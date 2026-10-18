@@ -1,0 +1,14 @@
+# Intro
+Meowximizer is a sonic enhancer, bass enhancer and exciter in one. It splits the sound into three phase-aligned bands and works on each: bass contour and harmonics, mid and high timing and dynamic lift, an air exciter, a squeeze section (compression, push and opto-style smoothing with several styles), warm saturation and an output limiter. Aim: put it on a lead or bass and it gets thicker, smoother and louder without losing punch.
+
+# Quick start
+- Pick a preset close to your source (Thick Supersaw, Dance Master Lead, Mix Bus Glue, Kick Beef).
+- Choose a Squeeze style in the menu: it sets the Squeeze, Push and Opto knobs and changes how the chain works.
+- Adjust Tone (bass, process, air) by ear, then Warm for saturation.
+- Set Ceiling for the limiter and match Output to the bypassed level.
+
+# Recommendations
+- Leads: Thick Supersaw or Dance Master styles, Opto 50 to 85, then lower Mix if it sounds crowded.
+- Bass: Tight Lock or Smooth styles, keep Bass harmonics moderate, check mono and small speakers.
+- Mix bus or master: Glue or Gentle style, low Squeeze, Ceiling at -1 dB.
+- Hardstyle kicks: Hardstyle Lock style with Push 1 and a Ceiling that leaves room for your mastering chain.
