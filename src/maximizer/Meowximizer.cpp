@@ -137,7 +137,8 @@ std::vector<FxBase::Preset> Meowximizer::presets() const
         { "OTT Hardcore", { { "mode", 1.f }, { "squeeze", 65.f }, { "push", 4.f }, { "air", 40.f }, { "bass", 40.f }, { "mix", 70.f } } },
         { "Vocal Air", { { "process", 6.f }, { "air", 55.f }, { "contour", 1.f }, { "squeeze", 20.f } } },
         { "Bass Boost", { { "contour", 6.f }, { "bass", 55.f }, { "squeeze", 25.f } } },
-        { "Drum Smack", { { "process", 7.f }, { "squeeze", 50.f }, { "warm", 35.f }, { "air", 20.f } } } };
+        { "Drum Smack", { { "process", 7.f }, { "squeeze", 50.f }, { "warm", 35.f }, { "air", 20.f } } },
+        { "LA-2A Lead Thicken", { { "mode", 0.f }, { "squeeze", 45.f }, { "push", 5.f }, { "warm", 45.f }, { "contour", 2.f }, { "air", 10.f }, { "bass", 10.f } } } };
 }
 
 void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
