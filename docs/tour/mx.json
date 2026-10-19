@@ -1,0 +1,364 @@
+{
+ "key": "mx",
+ "preset": "OTT Hardcore",
+ "box": [
+  100,
+  207.78125,
+  1100,
+  477.390625
+ ],
+ "items": [
+  {
+   "title": "Tone",
+   "box": [
+    135,
+    272.78125,
+    379.453125,
+    399.390625
+   ],
+   "disp": {
+    "letter": "A",
+    "box": [
+     143,
+     302.171875,
+     363.453125,
+     194
+    ]
+   },
+   "items": [
+    {
+     "n": 5,
+     "kind": "knob",
+     "name": "Lo contour",
+     "tip": "Low contour: a gentle low shelf at 70 Hz for weight and warmth. Each step is 1.1 dB.",
+     "value": "3.0",
+     "box": [
+      143,
+      502.171875,
+      89.359375,
+      84
+     ]
+    },
+    {
+     "n": 6,
+     "kind": "knob",
+     "name": "Bass harmonics",
+     "tip": "Bass harmonics: adds overtones to the bass (150 to 500 Hz) so it stays audible on small speakers.",
+     "value": "40 %",
+     "box": [
+      234.359375,
+      502.171875,
+      89.359375,
+      84
+     ]
+    },
+    {
+     "n": 7,
+     "kind": "knob",
+     "name": "Process",
+     "tip": "Process: delays lows and mids a tiny bit behind the highs and lifts the highs when the mids are quiet, for clarity and punch.",
+     "value": "5.0",
+     "box": [
+      325.71875,
+      502.171875,
+      89.359375,
+      84
+     ]
+    },
+    {
+     "n": 8,
+     "kind": "knob",
+     "name": "Air",
+     "tip": "Air: a smooth high shelf at 9 kHz (up to +4.5 dB) for sheen, plus an exciter that adds new harmonics above 5 kHz for brilliance and excitement. Extended range goes to 300 % and gets gritty with the stack exciter.",
+     "value": "40 %",
+     "box": [
+      417.078125,
+      502.171875,
+      89.359375,
+      84
+     ]
+    },
+    {
+     "n": 9,
+     "kind": "menu",
+     "name": "The shaper that makes the Air harmonics. The stack version gets gritty and fuzzy above about 100 %.",
+     "tip": "The shaper that makes the Air harmonics. The stack version gets gritty and fuzzy above about 100 %.",
+     "value": "Shipped: tanh(5x)",
+     "box": [
+      145,
+      592.171875,
+      271,
+      33
+     ]
+    }
+   ],
+   "img": "mx_p1.png"
+  },
+  {
+   "title": "Squeeze",
+   "box": [
+    526.453125,
+    272.78125,
+    219.109375,
+    399.390625
+   ],
+   "disp": {
+    "letter": "B",
+    "box": [
+     534.453125,
+     302.171875,
+     203.109375,
+     194
+    ]
+   },
+   "items": [
+    {
+     "n": 10,
+     "kind": "knob",
+     "name": "Squeeze",
+     "tip": "Squeeze: how much each of the three bands is evened out. More = denser. Extended range goes to 250 % (OTT territory).",
+     "value": "65 %",
+     "box": [
+      534.453125,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 11,
+     "kind": "knob",
+     "name": "Push",
+     "tip": "Push: raises the level going into the squeeze and the limiter for more loudness. Extended range goes to 36 dB.",
+     "value": "4.0 dB",
+     "box": [
+      602.828125,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 12,
+     "kind": "knob",
+     "name": "Opto",
+     "tip": "Opto: extra LA-2A style leveller on top of the style. Slow, program-dependent compression that thickens leads and bass.",
+     "value": "0 %",
+     "box": [
+      671.203125,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 13,
+     "kind": "menu",
+     "name": "Each style is a different chain. Picking one moves Squeeze, Push and Opto to suit it, like the plugin does.",
+     "tip": "Each style is a different chain. Picking one moves Squeeze, Push and Opto to suit it, like the plugin does.",
+     "value": "OTT style",
+     "box": [
+      536.453125,
+      592.171875,
+      179,
+      33
+     ]
+    },
+    {
+     "n": 14,
+     "kind": "menu",
+     "name": "Loudness match",
+     "tip": "Loudness match: a slow level follower that lifts the squeezed sound back up to the level that went in, so heavy styles never lose volume or loudness. Auto = on for the OTT Nasty and Vengeance Slam styles, off for the others.",
+     "value": "Loudness match: auto",
+     "box": [
+      536.453125,
+      631.171875,
+      181,
+      33
+     ]
+    }
+   ],
+   "img": "mx_p2.png"
+  },
+  {
+   "title": "Warm, clip and ceiling",
+   "box": [
+    757.5625,
+    272.78125,
+    219.109375,
+    399.390625
+   ],
+   "disp": {
+    "letter": "C",
+    "box": [
+     765.5625,
+     302.171875,
+     203.109375,
+     194
+    ]
+   },
+   "items": [
+    {
+     "n": 15,
+     "kind": "knob",
+     "name": "Warm",
+     "tip": "Warm: saturation on the whole signal. Rounds peaks and adds body. With a Warm character other than tanh it adds disto, transistor or fuzz grit when pushed. Extended range to 300 %.",
+     "value": "20 %",
+     "box": [
+      765.5625,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 16,
+     "kind": "knob",
+     "name": "Clip",
+     "tip": "Light peak clipper: pushes the signal up to 9 dB harder into a smooth clipper at the Ceiling, then the limiter. Shaves the peaks so the whole thing can sit much louder. Extended range to 200 %.",
+     "value": "0 %",
+     "box": [
+      833.9375,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 17,
+     "kind": "knob",
+     "name": "Ceiling",
+     "tip": "Ceiling: the output limiter never lets the signal go above this level.",
+     "value": "-0.3 dB",
+     "box": [
+      902.3125,
+      502.171875,
+      66.375,
+      84
+     ]
+    },
+    {
+     "n": 18,
+     "kind": "menu",
+     "name": "What the Warm knob does. Shipped is the plain tanh. The others are the PurrOne colour stages, oversampled 2x. Stack grows from drive to transistor to fuzz as you push Warm.",
+     "tip": "What the Warm knob does. Shipped is the plain tanh. The others are the PurrOne colour stages, oversampled 2x. Stack grows from drive to transistor to fuzz as you push Warm.",
+     "value": "Shipped: tanh",
+     "box": [
+      767.5625,
+      592.171875,
+      201.109375,
+      33
+     ]
+    },
+    {
+     "n": 19,
+     "kind": "menu",
+     "name": "Where the Clip stage sits. Post (before the limiter) keeps the squeeze natural and is what mastering clippers do. Pre clips the input before everything.",
+     "tip": "Where the Clip stage sits. Post (before the limiter) keeps the squeeze natural and is what mastering clippers do. Pre clips the input before everything.",
+     "value": "Post: just before the limiter",
+     "box": [
+      767.5625,
+      631.171875,
+      201.109375,
+      33
+     ]
+    }
+   ],
+   "img": "mx_p3.png"
+  },
+  {
+   "title": "Level",
+   "box": [
+    988.671875,
+    272.78125,
+    176.34375,
+    399.390625
+   ],
+   "disp": {
+    "letter": "D",
+    "box": [
+     996.671875,
+     302.171875,
+     160.34375,
+     194
+    ]
+   },
+   "items": [
+    {
+     "n": 20,
+     "kind": "knob",
+     "name": "Mix",
+     "tip": "Mix: dry/wet blend for parallel processing.",
+     "value": "70 %",
+     "box": [
+      996.671875,
+      502.171875,
+      79.171875,
+      84
+     ]
+    },
+    {
+     "n": 21,
+     "kind": "knob",
+     "name": "Output",
+     "tip": "Output: final level. Use Match level in the bar to compare fairly.",
+     "value": "0.0 dB",
+     "box": [
+      1077.84375,
+      502.171875,
+      79.171875,
+      84
+     ]
+    }
+   ],
+   "img": "mx_p4.png"
+  }
+ ],
+ "displays": [],
+ "top": [
+  {
+   "n": 1,
+   "name": "Preset menu",
+   "tip": "Factory presets (our own) and your saved presets.",
+   "box": [
+    713.765625,
+    225.28125,
+    231,
+    33
+   ]
+  },
+  {
+   "n": 2,
+   "name": "Randomize",
+   "tip": "Set the knobs to random values (output level, mix, cuts and pan are kept).",
+   "box": [
+    952.765625,
+    224.984375,
+    97.390625,
+    33.59375
+   ]
+  },
+  {
+   "n": 3,
+   "name": "Limiter",
+   "tip": "Safety limiter on the output: keeps the level from ever passing 0 dBFS, smooth and transparent. Turn it off for the raw output.",
+   "box": [
+    1058.15625,
+    224.984375,
+    68.84375,
+    33.59375
+   ]
+  },
+  {
+   "n": 4,
+   "name": "Info bubbles (i)",
+   "tip": "Info bubbles: hover a control for one second to see what it does. Click to turn them off or on.",
+   "box": [
+    1135,
+    226.78125,
+    30,
+    30
+   ]
+  }
+ ]
+}
