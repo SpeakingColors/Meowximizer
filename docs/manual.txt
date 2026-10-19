@@ -6,6 +6,7 @@ Meowximizer is a sonic enhancer, bass enhancer and exciter in one. It splits the
 - Choose a Squeeze style in the menu: it sets the Squeeze, Push and Opto knobs and changes how the chain works.
 - Adjust Tone (bass, process, air) by ear, then Warm for saturation.
 - Set Ceiling for the limiter and match Output to the bypassed level.
+- The round gear button in the header opens Settings: the plugin version, a link to the GitHub page and the releases page (it opens your browser; the plugin itself never goes online), and a switch for the info bubbles. Hover any control for about one second to see what it does; the round i button also turns the bubbles on or off.
 
 # Recommendations
 - Leads: Thick Supersaw or Dance Master styles, Opto 50 to 85, then lower Mix if it sounds crowded.
