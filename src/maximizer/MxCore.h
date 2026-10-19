@@ -176,7 +176,7 @@ struct Os2
 
 struct Squeezer
 {
-    float env = 0.f, grAuto = 0.f;
+    float env = 0.f, grAuto = 0.f; bool wide = false;   // wide: Nasty range lets a band swing further (-48 to +30 dB)
     float gain(float peak, float depth, const SqStyle& s, int band, float fs, float& gainDbOut)
     {
         const float att = std::exp(-1.f / (s.att * 0.001f * fs)), rel = std::exp(-1.f / ((s.rel + s.relAuto * grAuto) * 0.001f * fs));
@@ -188,7 +188,7 @@ struct Squeezer
         const float up = (db > s.lo && db < thr) ? (thr - db) * s.up : 0.f;
         grAuto += 0.001f * (red - grAuto);
         const float scale = depth > 0.f ? s.floor + (1.f - s.floor) * depth : 0.f;
-        gainDbOut = jlimit(-24.f, 18.f, (up - red) * scale * s.mb);
+        gainDbOut = wide ? jlimit(-48.f, 30.f, (up - red) * scale * s.mb) : jlimit(-24.f, 18.f, (up - red) * scale * s.mb);
         return dbToGain(gainDbOut);
     }
 };
@@ -245,6 +245,7 @@ struct Params
 {
     float contour = 3.f, bass = 25.f, process = 5.f, air = 25.f, squeeze = 30.f, warm = 20.f, push = 0.f, opto = 0.f, ceil = -0.3f, mix = 100.f, out = 0.f, clip = 0.f;
     int mode = 0, wchar = 0, airchar = 0, clipPos = 1, lcmode = 0;   // lcmode: 0 auto, 1 off, 2 on
+    bool nasty = false;
 };
 
 class Core
@@ -284,6 +285,7 @@ public:
     {
         nch = std::min(nch, kMaxCh);
         const int mode = std::max(0, std::min(kNumStyles - 1, p.mode)); const SqStyle& sty = kStyles[mode];
+        for (int b = 0; b < 3; ++b) sq[b].wide = p.nasty;
         const float depthT = p.squeeze * 0.01f, warmT = p.warm * 0.01f;
         const float optoAmtT = jlimit(0.f, 1.f, p.opto * 0.01f + sty.optoMix * depthT);
         const bool nChn = nch > 1;

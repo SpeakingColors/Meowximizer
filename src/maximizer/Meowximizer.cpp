@@ -5,13 +5,13 @@ using namespace catfx;
 Meowximizer::Meowximizer()
     : FxBase("Meowximizer",
         { { "contour", "Lo contour", "", 0.f, 10.f, 3.f, 0.f, "Low contour: a gentle low shelf for weight and warmth in the bottom end." },
-          { "bass", "Bass harmonics", " %", 0.f, 100.f, 25.f, 0.f, "Bass harmonics: adds overtones to the bass so it stays audible on small speakers." },
+          { "bass", "Bass harmonics", " %", 0.f, 100.f, 25.f, 0.f, "Bass harmonics: adds overtones to the bass so it stays audible on small speakers.", 200.f },
           { "process", "Process", "", 0.f, 10.f, 5.f, 0.f, "Process: the sonic-maximizer effect. Delays the lows and mids a tiny bit behind the highs and lifts the highs when the mids are quiet, for clarity and punch." },
-          { "air", "Air", " %", 0.f, 100.f, 25.f, 0.f, "Air: a smooth high shelf at 9 kHz (up to +4.5 dB) for sheen, plus an exciter that adds new harmonics above 5 kHz for brilliance and excitement. The exciter runs 2x oversampled, so it stays smooth." },
-          { "squeeze", "Squeeze", " %", 0.f, 100.f, 30.f, 0.f, "Squeeze: how much each of the three bands is evened out, pressing loud parts down and lifting quiet ones up. More = denser." },
-          { "warm", "Warm", " %", 0.f, 100.f, 20.f, 0.f, "Warm: saturation on the whole signal. Rounds peaks and adds body. With a Warm character other than tanh it adds disto, transistor or fuzz grit when pushed." },
-          { "clip", "Clip", " %", 0.f, 100.f, 0.f, 0.f, "Light peak clipper: pushes the signal up to 9 dB harder into a smooth clipper at the Ceiling, then the limiter. Shaves the peaks so the whole thing can sit much louder." },
-          { "push", "Push", " dB", 0.f, 18.f, 0.f, 0.f, "Push: raises the level going into the squeeze and the limiter for more loudness." },
+          { "air", "Air", " %", 0.f, 100.f, 25.f, 0.f, "Air: a smooth high shelf at 9 kHz (up to +4.5 dB) for sheen, plus an exciter that adds new harmonics above 5 kHz for brilliance and excitement. The exciter runs 2x oversampled, so it stays smooth.", 300.f },
+          { "squeeze", "Squeeze", " %", 0.f, 100.f, 30.f, 0.f, "Squeeze: how much each of the three bands is evened out, pressing loud parts down and lifting quiet ones up. More = denser.", 250.f },
+          { "warm", "Warm", " %", 0.f, 100.f, 20.f, 0.f, "Warm: saturation on the whole signal. Rounds peaks and adds body. With a Warm character other than tanh it adds disto, transistor or fuzz grit when pushed.", 300.f },
+          { "clip", "Clip", " %", 0.f, 100.f, 0.f, 0.f, "Light peak clipper: pushes the signal up to 9 dB harder into a smooth clipper at the Ceiling, then the limiter. Shaves the peaks so the whole thing can sit much louder.", 200.f },
+          { "push", "Push", " dB", 0.f, 18.f, 0.f, 0.f, "Push: raises the level going into the squeeze and the limiter for more loudness.", 36.f },
           { "opto", "Opto", " %", 0.f, 100.f, 0.f, 0.f, "Opto: extra LA-2A style leveller on top of whatever the squeeze style already uses. Slow, smooth, program-dependent compression that thickens leads and bass. 0 = only what the style brings." },
           { "ceil", "Ceiling", " dB", -12.f, 0.f, -0.3f, 0.f, "Ceiling: the output limiter never lets the signal go above this level." },
           { "mix", "Mix", " %", 0.f, 100.f, 100.f, 0.f, "Mix: dry/wet blend for parallel processing." },
@@ -39,7 +39,7 @@ void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer
     p.contour = get("contour"); p.bass = get("bass"); p.process = get("process"); p.air = get("air"); p.squeeze = get("squeeze"); p.warm = get("warm");
     p.push = get("push"); p.opto = get("opto"); p.ceil = get("ceil"); p.mix = get("mix"); p.out = get("out"); p.clip = get("clip");
     p.mode = juce::jlimit(0, kNumStyles - 1, (int) get("mode")); p.wchar = (int) get("wchar"); p.airchar = (int) get("airchar");
-    p.clipPos = (int) get("clipPos"); p.lcmode = (int) get("lcmode");
+    p.clipPos = (int) get("clipPos"); p.lcmode = (int) get("lcmode"); p.nasty = nastyOn();
     core.process(buf.getArrayOfWritePointers(), nch, n, p);
     optoGr = core.optoGrDb; lift = core.liftNow; dLo = core.delayLoMs; dMid = core.delayMidMs;
     for (int k = 0; k < 3; ++k) { bandLv[k] = core.bandPeak[k]; bandGain[k] = core.bandGainDb[k]; }
