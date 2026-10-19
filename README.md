@@ -5,7 +5,7 @@
 Free, open source sonic enhancer, bass enhancer and exciter for Linux (VST3 and standalone). Three phase-aligned bands: low contour and bass harmonics, mid and high time offsets and dynamic lift, air exciter, optional OTT-style squeeze, light saturation and an output limiter.
 
 ## Status
-Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet. Free and open source. Donations welcome (link coming).
+Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet. Free and open source. Donations welcome: https://ko-fi.com/studio87
 
 ## Docs
 - [Roadmap](ROADMAP.md)
