@@ -2,156 +2,47 @@
 
 using namespace catfx;
 
-// gentle per-band saturation: blend of the clean signal and a soft tanh curve
-static inline float bandSat(float x, float amt) { return x * (1.f - amt) + amt * 0.5f * std::tanh(2.f * x); }
-
-// soft per-band limiter: linear up to 70% of the ceiling, then a smooth tanh knee up to the ceiling
-static inline float bandLimit(float x, float ceil)
-{
-    const float a = std::abs(x), k = 0.7f * ceil;
-    if (a <= k) return x;
-    const float y = k + (ceil - k) * std::tanh((a - k) / (ceil - k));
-    return x < 0.f ? -y : y;
-}
-
 Meowximizer::Meowximizer()
     : FxBase("Meowximizer",
         { { "contour", "Lo contour", "", 0.f, 10.f, 3.f, 0.f, "Low contour: a gentle low shelf for weight and warmth in the bottom end." },
           { "bass", "Bass harmonics", " %", 0.f, 100.f, 25.f, 0.f, "Bass harmonics: adds overtones to the bass so it stays audible on small speakers." },
           { "process", "Process", "", 0.f, 10.f, 5.f, 0.f, "Process: the sonic-maximizer effect. Delays the lows and mids a tiny bit behind the highs and lifts the highs when the mids are quiet, for clarity and punch." },
-          { "air", "Air", " %", 0.f, 100.f, 25.f, 0.f, "Air: adds sparkle above about 5 kHz with a gentle exciter." },
+          { "air", "Air", " %", 0.f, 100.f, 25.f, 0.f, "Air: a smooth high shelf at 9 kHz (up to +4.5 dB) for sheen, plus an exciter that adds new harmonics above 5 kHz for brilliance and excitement. The exciter runs 2x oversampled, so it stays smooth." },
           { "squeeze", "Squeeze", " %", 0.f, 100.f, 30.f, 0.f, "Squeeze: how much each of the three bands is evened out, pressing loud parts down and lifting quiet ones up. More = denser." },
-          { "warm", "Warm", " %", 0.f, 100.f, 20.f, 0.f, "Warm: light saturation on the whole signal. Rounds peaks and adds body." },
+          { "warm", "Warm", " %", 0.f, 100.f, 20.f, 0.f, "Warm: saturation on the whole signal. Rounds peaks and adds body. With a Warm character other than tanh it adds disto, transistor or fuzz grit when pushed." },
+          { "clip", "Clip", " %", 0.f, 100.f, 0.f, 0.f, "Light peak clipper: pushes the signal up to 9 dB harder into a smooth clipper at the Ceiling, then the limiter. Shaves the peaks so the whole thing can sit much louder." },
           { "push", "Push", " dB", 0.f, 18.f, 0.f, 0.f, "Push: raises the level going into the squeeze and the limiter for more loudness." },
           { "opto", "Opto", " %", 0.f, 100.f, 0.f, 0.f, "Opto: extra LA-2A style leveller on top of whatever the squeeze style already uses. Slow, smooth, program-dependent compression that thickens leads and bass. 0 = only what the style brings." },
           { "ceil", "Ceiling", " dB", -12.f, 0.f, -0.3f, 0.f, "Ceiling: the output limiter never lets the signal go above this level." },
           { "mix", "Mix", " %", 0.f, 100.f, 100.f, 0.f, "Mix: dry/wet blend for parallel processing." },
           { "out", "Output", " dB", -12.f, 12.f, 0.f, 0.f, "Output: final level. Match it with the bypassed level when comparing." } },
-        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer", "Thick Supersaw" }, 0, "Squeeze style: each style is a different chain. Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb). Thick Supersaw is a slow, soft squeeze that pairs with the Opto knob to fatten supersaw leads." } })
+        { { "mode", "Squeeze mode", { "Gentle", "OTT style", "Dance Master", "Glue", "Slow Smooth", "Punchy", "Tight Lock", "Lift", "Hardstyle Lock", "Highs Tamer", "Thick Supersaw" }, 0, "Squeeze style: each style is a different chain. Gentle keeps dynamics natural. OTT presses the loud down and lifts the quiet up hard. Dance Master is a controlled multiband compressor with soft knee, auto release and a limiter on each band. Glue is mild and sticky. Slow Smooth is slow and smooth, like an opto. Punchy lets the attack through. Tight Lock clamps hard and fast. Lift brings up quiet parts. Hardstyle Lock is fast and firm with extra low-end control. Highs Tamer holds back harsh highs on leads (good after a reverb). Thick Supersaw is a slow, soft squeeze that pairs with the Opto knob to fatten supersaw leads." },
+          { "lcmode", "Loudness match", { "Auto", "Off", "On" }, 0, "Loudness match: a slow level follower lifts the processed sound back up to the level that went in, so heavy squeeze or opto settings never lose volume or loudness. Auto switches it on as the Opto amount grows. It only ever lifts, and never past the Ceiling." },
+          { "airchar", "Air exciter", { "Shipped: tanh(5x)", "PurrOne stack (gritty when pushed)" }, 0, "The shaper that makes the Air harmonics. The stack version gets gritty and fuzzy when Air is pushed high." },
+          { "wchar", "Warm character", { "Shipped: tanh", "Drive (opamp tanh)", "Transistor (even harmonics)", "Fuzz (lopsided)", "Stack: all three, grows with Warm" }, 0, "What the Warm knob does. Shipped is the plain tanh. The others are the PurrOne colour stages, oversampled 2x. Stack grows from drive to transistor to fuzz as you push Warm." },
+          { "clipPos", "Clipper position", { "Pre: on the input", "Post: just before the limiter" }, 1, "Where the Clip stage sits. Post (before the limiter) keeps the squeeze natural and is what mastering clippers do. Pre clips the input before everything." } })
 {
     for (int i = 0; i < 3; ++i) { bandLv[i] = -100.f; bandGain[i] = 0.f; }
 }
 
-void Meowximizer::prepare(double sr, int bs)
+void Meowximizer::prepare(double sr, int)
 {
-    juce::dsp::ProcessSpec spec { sr, (juce::uint32) bs, 1 }, spec2 { sr, (juce::uint32) bs, 2 };
-    for (int c = 0; c < 2; ++c)
-    {
-        for (auto* f : { &s1[c], &s2[c], &ap[c] }) { f->prepare(spec); f->reset(); }
-        shelf[c].reset(); airHp1[c].reset(); airHp2[c].reset();
-        airHp1[c].coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sr, 5000.0, 0.7071f);
-        airHp2[c].coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sr, 7000.0, 0.7071f);
-        ringLo[c].assign((size_t) kRing, 0.f); ringMid[c].assign((size_t) kRing, 0.f);
-    }
-    for (int c = 0; c < 2; ++c) { subHp[c].reset(); subHp[c].coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sr, 22.0, 0.7071f); }
-    opto = {};
-    bassHp.reset(); bassLp.reset();
-    bassHp.coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sr, 150.0, 0.7071f);
-    bassLp.coefficients = juce::dsp::IIR::Coefficients<float>::makeLowPass(sr, 500.0, 0.7071f);
-    limiter.prepare(spec2); limiter.reset();
-    for (auto& s : sq) s.env = 0.f;
-    for (auto& d : dryBuf) d.assign((size_t) bs, 0.f);
-    ringPos = 0; bassEnv = bassDc = 0.f; midEnvDb = -60.f; liftDb = 0.f;
+    core.prepare(sr);
+    setLatencySamples(core.latency());   // exact: 3 oversampled stages (air, warm, clipper) plus the 1.5 ms limiter lookahead
 }
 
 void Meowximizer::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer<float>*)
 {
     const int n = buf.getNumSamples(), nch = juce::jmin(2, buf.getNumChannels());
-    const float contour = get("contour"), bassAmt = get("bass") / 100.f, proc = get("process") / 10.f, airAmt = get("air") / 100.f;
-    const float depth = get("squeeze") / 100.f, warm = get("warm") / 100.f, mix = get("mix") / 100.f;
-    const float push = juce::Decibels::decibelsToGain(get("push")), outG = juce::Decibels::decibelsToGain(get("out"));
-    const int mode = juce::jlimit(0, kNumStyles - 1, (int) get("mode"));
-    const SqStyle& sty = kStyles[mode];
-    const float optoAmt = juce::jlimit(0.f, 1.f, get("opto") / 100.f + sty.optoMix * depth);   // the style's own leveller plus the Opto knob
-    const float satAmt = sty.sat * depth, maxG = juce::Decibels::decibelsToGain(sty.maxi * depth);
-    float optoGrAcc = 0.f;
-    const float x1 = 150.f, x2 = 2500.f;
-    const int dLoS = juce::jmin(kRing - 2, (int) (proc * 0.0025f * (float) fs)), dMidS = juce::jmin(kRing - 2, (int) (proc * 0.0010f * (float) fs));
-    dLo = 1000.f * (float) dLoS / (float) fs; dMid = 1000.f * (float) dMidS / (float) fs;
-    for (int c = 0; c < nch; ++c)
-    {
-        s1[c].setCutoffFrequency(x1); s2[c].setCutoffFrequency(x2); ap[c].setCutoffFrequency(x2);
-        shelf[c].coefficients = juce::dsp::IIR::Coefficients<float>::makeLowShelf(fs, 70.0, 0.7071f, juce::Decibels::decibelsToGain(contour * 1.1f));
-    }
-    const float aA = std::exp(-1.f / (0.004f * (float) fs)), aR = std::exp(-1.f / (0.08f * (float) fs));
-    const float aMid = std::exp(-1.f / (0.05f * (float) fs));
-    const float d = 1.f + warm * 1.5f;
-    float pkLv[3] {}, gSum[3] {};
-    for (int i = 0; i < n; ++i)
-    {
-        float lo[2] {}, mid[2] {}, hi[2] {}, dry[2] {};
-        float optoG = 1.f, og = 0.f;
-        if (optoAmt > 0.f)
-        {
-            float pkIn = 0.f;
-            for (int c = 0; c < nch; ++c) pkIn = std::max(pkIn, std::abs(buf.getReadPointer(c)[i] * push));
-            optoG = opto.gain(pkIn, optoAmt, (float) fs, og);
-            optoGrAcc += og;
-        }
-        for (int c = 0; c < nch; ++c)
-        {
-            dry[c] = buf.getReadPointer(c)[i]; dryBuf[c][(size_t) i] = dry[c];
-            float x = dry[c] * push;
-            if (sty.sub) x = subHp[c].processSample(x);   // keep sub rumble out of the compressors
-            x *= optoG;
-            float l1, r1, a, b, m, h;
-            s1[c].processSample(0, x, l1, r1);
-            ap[c].processSample(0, l1, a, b); lo[c] = a + b;       // keep the low band phase-aligned with the 2.5 kHz split
-            s2[c].processSample(0, r1, m, h);
-            mid[c] = m; hi[c] = h;
-        }
-        // linked detectors
-        float pk[3] {};
-        for (int c = 0; c < nch; ++c) { pk[0] = std::max(pk[0], std::abs(lo[c])); pk[1] = std::max(pk[1], std::abs(mid[c])); pk[2] = std::max(pk[2], std::abs(hi[c])); }
-        float gDb[3];
-        const float g0 = sq[0].gain(pk[0], depth, sty, 0, (float) fs, gDb[0]);
-        const float g1 = sq[1].gain(pk[1], depth, sty, 1, (float) fs, gDb[1]);
-        const float g2 = sq[2].gain(pk[2], depth, sty, 2, (float) fs, gDb[2]);
-        for (int k = 0; k < 3; ++k) { pkLv[k] = std::max(pkLv[k], pk[k]); gSum[k] += gDb[k]; }
-        // bass harmonics from the mono low band
-        const float mono = nch > 1 ? 0.5f * (lo[0] + lo[1]) : lo[0];
-        bassEnv = (std::abs(mono) > bassEnv ? aA : aR) * bassEnv + (1.f - (std::abs(mono) > bassEnv ? aA : aR)) * std::abs(mono);
-        float ev = std::abs(mono); bassDc += 0.002f * (ev - bassDc); ev -= bassDc;
-        float bh = (ev * 2.f * (1.f - 0.3f) + std::tanh(4.f * mono) * 0.5f * 0.3f) * juce::jlimit(0.f, 6.f, std::pow(std::max(bassEnv, 0.003f) / 0.25f, -0.5f)) * 0.25f;
-        bh = bassLp.processSample(bassHp.processSample(bh)) * bassAmt * 3.f;
-        // high band: dynamic lift by the mid level
-        const float midDb = juce::Decibels::gainToDecibels(pk[1], -100.f);
-        midEnvDb = aMid * midEnvDb + (1.f - aMid) * midDb;
-        const float tgt = proc * juce::jmap(juce::jlimit(0.f, 1.f, (midEnvDb + 50.f) / 35.f), 7.f, -2.f);
-        liftDb = aMid * liftDb + (1.f - aMid) * tgt;
-        const float liftG = juce::Decibels::decibelsToGain(liftDb);
-        for (int c = 0; c < nch; ++c)
-        {
-            float l = shelf[c].processSample(lo[c]) * g0 + bh;
-            float m = mid[c] * g1;
-            if (satAmt > 0.f) { l = bandSat(l, satAmt); m = bandSat(m, satAmt); }
-            if (sty.limit) { l = bandLimit(l, 0.85f); m = bandLimit(m, 0.8f); }
-            // time offsets: lows and mids arrive slightly after the highs
-            auto& rl = ringLo[c]; auto& rm = ringMid[c];
-            rl[(size_t) ringPos] = l; rm[(size_t) ringPos] = m;
-            l = rl[(size_t) ((ringPos - dLoS + kRing) % kRing)]; m = rm[(size_t) ((ringPos - dMidS + kRing) % kRing)];
-            float h = hi[c] * g2 * liftG;
-            if (satAmt > 0.f) h = bandSat(h, satAmt);
-            if (sty.limit) h = bandLimit(h, 0.6f);
-            const float ex = airHp2[c].processSample(std::tanh(5.f * airHp1[c].processSample(hi[c])));
-            h += ex * airAmt * 0.5f;
-            float y = l + m + h;
-            y = y * (1.f - warm) + warm * std::tanh(d * y) / d;
-            buf.getWritePointer(c)[i] = y * maxG;
-            if (c == 0 && i == 0) lift = liftDb;
-        }
-        ringPos = (ringPos + 1) % kRing;
-    }
-    limiter.setThreshold(get("ceil")); limiter.setRelease(80.f);
-    juce::dsp::AudioBlock<float> blk(buf);
-    limiter.process(juce::dsp::ProcessContextReplacing<float>(blk));
-    for (int c = 0; c < nch; ++c)
-    {
-        auto* w = buf.getWritePointer(c);
-        for (int i = 0; i < n; ++i) w[i] = (w[i] * mix + dryBuf[c][(size_t) i] * (1.f - mix)) * outG; // the chain has no latency, so dry lines up
-    }
-    optoGr = optoGrAcc / (float) std::max(1, n);
-    for (int k = 0; k < 3; ++k) { bandLv[k] = juce::Decibels::gainToDecibels(pkLv[k], -100.f); bandGain[k] = gSum[k] / (float) std::max(1, n); }
+    if (n <= 0 || nch <= 0) return;
+    mx::Params p;
+    p.contour = get("contour"); p.bass = get("bass"); p.process = get("process"); p.air = get("air"); p.squeeze = get("squeeze"); p.warm = get("warm");
+    p.push = get("push"); p.opto = get("opto"); p.ceil = get("ceil"); p.mix = get("mix"); p.out = get("out"); p.clip = get("clip");
+    p.mode = juce::jlimit(0, kNumStyles - 1, (int) get("mode")); p.wchar = (int) get("wchar"); p.airchar = (int) get("airchar");
+    p.clipPos = (int) get("clipPos"); p.lcmode = (int) get("lcmode");
+    core.process(buf.getArrayOfWritePointers(), nch, n, p);
+    optoGr = core.optoGrDb; lift = core.liftNow; dLo = core.delayLoMs; dMid = core.delayMidMs;
+    for (int k = 0; k < 3; ++k) { bandLv[k] = core.bandPeak[k]; bandGain[k] = core.bandGainDb[k]; }
 }
 
 // Picking a squeeze style moves Squeeze, Push and Opto to the amounts that suit that style (you can still change them afterwards).
@@ -167,9 +58,9 @@ std::vector<std::pair<juce::String, float>> Meowximizer::choiceDefaults(const ju
 
 std::vector<catfx::PanelSpec> Meowximizer::panels() const
 {
-    return { { "Tone", { "contour", "bass", "process", "air" }, {}, 3.2f },
-             { "Squeeze", { "squeeze", "push", "opto" }, { "mode" }, 2.4f },
-             { "Saturation and ceiling", { "warm", "ceil" }, {}, 1.8f },
+    return { { "Tone", { "contour", "bass", "process", "air" }, { "airchar" }, 3.2f },
+             { "Squeeze", { "squeeze", "push", "opto" }, { "mode", "lcmode" }, 2.4f },
+             { "Saturation and ceiling", { "warm", "clip", "ceil" }, { "wchar", "clipPos" }, 2.1f },
              { "Level", { "mix", "out" }, {}, 1.7f } };
 }
 
@@ -261,7 +152,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         g.setColour(green()); g.drawText("bands: before (grey),", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.setColour(accent()); g.drawText("after", (int) r.getX() + 120, (int) r.getY() + 1, 60, 12, juce::Justification::left);
         {   // what the chosen style is running right now
-            const auto& sty = kStyles[juce::jlimit(0, kNumStyles - 1, (int) get("mode"))];
+            const auto& sty = mx::kStyles[juce::jlimit(0, kNumStyles - 1, (int) get("mode"))];
             const float depth = get("squeeze") / 100.f, oe = juce::jlimit(0.f, 1.f, get("opto") / 100.f + sty.optoMix * depth);
             g.setFont(juce::FontOptions(10.f));
             g.setColour(accent()); g.drawText("opto " + juce::String((int) std::round(oe * 100.f)), (int) r.getX() + 34, (int) r.getY() + 13, 52, 11, juce::Justification::left);
@@ -272,7 +163,7 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
     }
     else if (idx == 2) // saturation curve and the limiter ceiling
     {
-        const float warm = get("warm") / 100.f, d = 1.f + warm * 1.5f, ceil = get("ceil");
+        const float warm = get("warm") / 100.f, d = 1.f + warm * 1.5f, ceil = get("ceil"), clipAmt = get("clip") / 100.f, preG = juce::Decibels::decibelsToGain(9.f * clipAmt);
         const float ceilLin = juce::Decibels::decibelsToGain(ceil);
         auto p = r.withTrimmedLeft(8.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
@@ -283,11 +174,11 @@ void Meowximizer::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> 
         juce::Path c;
         for (int i = 0; i <= 200; ++i)
         {
-            const float x = -1.f + (float) i / 100.f, y = juce::jlimit(-ceilLin, ceilLin, (1.f - warm) * x + warm * std::tanh(d * x) / d);
+            const float x = -1.f + (float) i / 100.f, s = (1.f - warm) * x + warm * std::tanh(d * x) / d, y = juce::jlimit(-ceilLin, ceilLin, clipAmt > 0.f ? std::tanh(s * preG * 1.2f) / 1.2f : s);
             i ? c.lineTo(X(x), Y(y)) : c.startNewSubPath(X(x), Y(y));
         }
         g.setColour(accent()); g.strokePath(c, juce::PathStrokeType(2.5f));
-        const float lv = juce::jlimit(0.f, 1.f, inLevel.load()), yy = juce::jlimit(-ceilLin, ceilLin, (1.f - warm) * lv + warm * std::tanh(d * lv) / d);
+        const float lv = juce::jlimit(0.f, 1.f, inLevel.load()), sl = (1.f - warm) * lv + warm * std::tanh(d * lv) / d, yy = juce::jlimit(-ceilLin, ceilLin, clipAmt > 0.f ? std::tanh(sl * preG * 1.2f) / 1.2f : sl);
         g.setColour(juce::Colours::white); g.fillEllipse(X(lv) - 3.f, Y(yy) - 3.f, 6.f, 6.f);
         g.setColour(accent()); g.setFont(juce::FontOptions(11.f));
         g.drawText("saturation and limiter ceiling", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);

@@ -12,3 +12,12 @@ Meowximizer is a sonic enhancer, bass enhancer and exciter in one. It splits the
 - Bass: Tight Lock or Smooth styles, keep Bass harmonics moderate, check mono and small speakers.
 - Mix bus or master: Glue or Gentle style, low Squeeze, Ceiling at -1 dB.
 - Hardstyle kicks: Hardstyle Lock style with Push 1 and a Ceiling that leaves room for your mastering chain.
+
+# New in this version
+- Latency: the plugin reports its exact latency to the host (about 3.4 ms at 48 kHz: 2x oversampling stages plus a 1.5 ms limiter lookahead). The host compensates automatically.
+- Clip knob and Clipper position: a smooth peak clipper (up to 9 dB harder) before the limiter, or on the input.
+- Warm character: plain tanh, Drive, Transistor, Fuzz, or Stack.
+- Air exciter: tanh or the PurrOne stack (gritty when pushed). Air also adds a smooth 9 kHz shelf.
+- Loudness match (Auto, Off, On): lifts the processed sound back to the input level, never past the Ceiling.
+- The Ceiling holds exactly: the limiter is a lookahead limiter with no overshoot.
+- Every level-type knob is smoothed over 20 ms at most, so there is no zipper noise and no delay when you move a knob.
