@@ -4,6 +4,8 @@
 
 Free, open source sonic enhancer, bass enhancer and exciter for Linux (VST3 and standalone). Three phase-aligned bands: low contour and bass harmonics, mid and high time offsets and dynamic lift, air exciter, optional OTT-style squeeze, light saturation and an output limiter.
 
+**Manual:** [PDF with interface tour, opens in the browser](https://github.com/SpeakingColors/Meowximizer/blob/main/docs/Meowximizer-manual.pdf)
+
 ## Status
 Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet.
 
