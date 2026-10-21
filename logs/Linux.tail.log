@@ -37,8 +37,8 @@ Call Stack (most recent call first):
   CMakeLists.txt:11 (juce_add_plugin)
 
 
--- Configuring done (87.3s)
--- Generating done (0.1s)
+-- Configuring done (90.0s)
+-- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Meowximizer/Meowximizer/build
 [  1%] Building VST3 manifest helper for Meowximizer
 [  3%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
@@ -85,24 +85,8 @@ In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce
 /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
    60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
       |          ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.cpp:1:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
 In file included from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:3,
                  from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.cpp:2:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:3:
 /home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
 /home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
    91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
@@ -114,25 +98,9 @@ In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce
 /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
   292 |     virtual void processBlock (AudioBuffer<double>& buffer,
       |                  ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:2,
-                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:1:
-/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
 /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
    60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
       |          ^~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:3:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
 In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:3,
                  from /home/runner/work/Meowximizer/Meowximizer/src/Plugins.cpp:3:
 /home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
@@ -144,6 +112,49 @@ In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Me
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:77:40: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
    77 |     void set(float v, int len) { if (v == tgt) return; tgt = v; if (len < 1) { cur = v; left = 0; return; } left = len; step = (tgt - cur) / (float) len; }
       |                                      ~~^~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In constructor ‘mx::HalfBandTaps::HalfBandTaps()’:
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:147:33: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  147 |             const double h = (k == 0 ? 0.5 : std::sin(kPi * k / 2) / (kPi * k)) * w;
+      |                               ~~^~~~
+In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:2,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.cpp:1:
+/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In member function ‘void mx::Core::process(float* const*, int, int, const mx::Params&)’:
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:318:29: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  318 |                 if (contour != lastContour) { for (int c = 0; c < nch; ++c) { bqLowShelf(co, fs, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } lastContour = contour; }
+      |                     ~~~~~~~~^~~~~~~~~~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:319:28: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  319 |                 if (airAmt != lastAir) { for (int c = 0; c < nch; ++c) { bqHighShelf(co, fs, 9000.0, 0.7071, std::pow(10.0, std::min(airAmt, 3.f) * 4.5 / 20.0)); ch[c].airShelf.set(co); } lastAir = airAmt; }
+      |                     ~~~~~~~^~~~~~~~~~
+In file included from /home/runner/work/Meowximizer/Meowximizer/src/common/FxEditor.h:3:
+/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
+/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
+      |                                                         ~~~~~^~~~~~
+In file included from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:2,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:2,
+                 from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:1:
+/home/runner/work/Meowximizer/Meowximizer/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/Meowximizer/Meowximizer/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:3:
+/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
+/home/runner/work/Meowximizer/Meowximizer/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
+      |                                                         ~~~~~^~~~~~
 In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:4:
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In member function ‘void mx::Ramp::set(float, int)’:
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:77:40: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
@@ -153,21 +164,10 @@ In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Me
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:147:33: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   147 |             const double h = (k == 0 ? 0.5 : std::sin(kPi * k / 2) / (kPi * k)) * w;
       |                               ~~^~~~
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In constructor ‘mx::HalfBandTaps::HalfBandTaps()’:
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:147:33: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  147 |             const double h = (k == 0 ? 0.5 : std::sin(kPi * k / 2) / (kPi * k)) * w;
-      |                               ~~^~~~
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In member function ‘void mx::Core::process(float* const*, int, int, const mx::Params&)’:
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:318:29: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   318 |                 if (contour != lastContour) { for (int c = 0; c < nch; ++c) { bqLowShelf(co, fs, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } lastContour = contour; }
       |                     ~~~~~~~~^~~~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h: In member function ‘void mx::Core::process(float* const*, int, int, const mx::Params&)’:
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:318:29: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  318 |                 if (contour != lastContour) { for (int c = 0; c < nch; ++c) { bqLowShelf(co, fs, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } lastContour = contour; }
-      |                     ~~~~~~~~^~~~~~~~~~~~~~
-/home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:319:28: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  319 |                 if (airAmt != lastAir) { for (int c = 0; c < nch; ++c) { bqHighShelf(co, fs, 9000.0, 0.7071, std::pow(10.0, std::min(airAmt, 3.f) * 4.5 / 20.0)); ch[c].airShelf.set(co); } lastAir = airAmt; }
-      |                     ~~~~~~~^~~~~~~~~~
 /home/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:319:28: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   319 |                 if (airAmt != lastAir) { for (int c = 0; c < nch; ++c) { bqHighShelf(co, fs, 9000.0, 0.7071, std::pow(10.0, std::min(airAmt, 3.f) * 4.5 / 20.0)); ch[c].airShelf.set(co); } lastAir = airAmt; }
       |                     ~~~~~~~^~~~~~~~~~
@@ -214,17 +214,17 @@ In file included from /home/runner/work/Meowximizer/Meowximizer/src/maximizer/Me
 [ 75%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 77%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 78%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 83%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 83%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 83%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 85%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 90%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 90%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 90%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 91%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 93%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 95%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 96%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 80%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 83%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 85%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 86%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 90%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 90%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 91%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 93%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 95%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 96%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 98%] Linking CXX executable Meowximizer_artefacts/Release/Standalone/Meowximizer
 [ 98%] Built target Meowximizer_Standalone
 [100%] Linking CXX shared module Meowximizer_artefacts/Release/VST3/Meowximizer.vst3/Contents/x86_64-linux/Meowximizer.so
