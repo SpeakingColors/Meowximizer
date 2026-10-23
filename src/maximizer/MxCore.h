@@ -332,7 +332,7 @@ public:
             {
                 v[c] = x[c];
                 if (clipAmt > 0.f && p.clipPos == 0) v[c] = softClip(v[c], 0.9f, clipAmt);
-                if (sty.sub) v[c] = ch[c].subHp.tick(v[c]);
+                v[c] = ch[c].subHp.tick(v[c]);   // always-on 22 Hz high-pass: no DC or infrasound reaches the contour shelf, squeeze or limiter
                 v[c] *= og;
                 float l1, r1, a, b, m, h; ch[c].lr1.split(v[c], l1, r1); ch[c].lrAp.split(l1, a, b); lo[c] = a + b; ch[c].lr2.split(r1, m, h); mid[c] = m; hi[c] = h;
             }
