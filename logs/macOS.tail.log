@@ -24,12 +24,12 @@ Call Stack (most recent call first):
   CMakeLists.txt:11 (juce_add_plugin)
 
 
--- Configuring done (50.2s)
--- Generating done (0.1s)
+-- Configuring done (79.8s)
+-- Generating done (0.0s)
 -- Build files have been written to: /Users/runner/work/Meowximizer/Meowximizer/build
 [  1%] Building VST3 manifest helper for Meowximizer
-[  2%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  2%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
 [  5%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
 -- The CXX compiler identification is AppleClang 21.0.0.21000101
 -- Detecting CXX compiler ABI info
@@ -37,7 +37,7 @@ Call Stack (most recent call first):
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (1.3s)
+-- Configuring done (0.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/runner/work/Meowximizer/Meowximizer/build/vst3_helpers/Meowximizer
 make[3]: warning: jobserver unavailable: using -j1.  Add `+' to parent make rule.
@@ -58,10 +58,24 @@ make[3]: warning: jobserver unavailable: using -j1.  Add `+' to parent make rule
 [ 21%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
 [ 23%] Linking CXX static library libcat_ui.a
 [ 23%] Built target cat_ui
-[ 24%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxBase.cpp.o
-[ 26%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxEditor.cpp.o
-[ 27%] Building CXX object CMakeFiles/Meowximizer.dir/src/Plugins.cpp.o
+[ 24%] Building CXX object CMakeFiles/Meowximizer.dir/src/Plugins.cpp.o
+[ 26%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxBase.cpp.o
+[ 27%] Building CXX object CMakeFiles/Meowximizer.dir/src/common/FxEditor.cpp.o
 [ 28%] Building CXX object CMakeFiles/Meowximizer.dir/src/maximizer/Meowximizer.cpp.o
+In file included from /Users/runner/work/Meowximizer/Meowximizer/src/Plugins.cpp:3:
+In file included from /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:4:
+/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:77:40: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+   77 |     void set(float v, int len) { if (v == tgt) return; tgt = v; if (len < 1) { cur = v; left = 0; return; } left = len; step = (tgt - cur) / (float) len; }
+      |                                      ~ ^  ~~~
+/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:147:33: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  147 |             const double h = (k == 0 ? 0.5 : std::sin(kPi * k / 2) / (kPi * k)) * w;
+      |                               ~ ^  ~
+/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:318:29: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  318 |                 if (contour != lastContour) { for (int c = 0; c < nch; ++c) { bqLowShelf(co, fs, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } lastContour = contour; }
+      |                     ~~~~~~~ ^  ~~~~~~~~~~~
+/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:319:28: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  319 |                 if (airAmt != lastAir) { for (int c = 0; c < nch; ++c) { bqHighShelf(co, fs, 9000.0, 0.7071, std::pow(10.0, std::min(airAmt, 3.f) * 4.5 / 20.0)); ch[c].airShelf.set(co); } lastAir = airAmt; }
+      |                     ~~~~~~ ^  ~~~~~~~
 In file included from /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:1:
 In file included from /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:4:
 /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:77:40: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
@@ -88,31 +102,17 @@ In file included from /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/M
 /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:64:52: warning: missing field 'presets' initializer [-Wmissing-field-initializers]
    64 |              { "Level", { "mix", "out" }, {}, 1.7f } };
       |                                                    ^
-In file included from /Users/runner/work/Meowximizer/Meowximizer/src/Plugins.cpp:3:
-In file included from /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:4:
-/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:77:40: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
-   77 |     void set(float v, int len) { if (v == tgt) return; tgt = v; if (len < 1) { cur = v; left = 0; return; } left = len; step = (tgt - cur) / (float) len; }
-      |                                      ~ ^  ~~~
-/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:147:33: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
-  147 |             const double h = (k == 0 ? 0.5 : std::sin(kPi * k / 2) / (kPi * k)) * w;
-      |                               ~ ^  ~
 /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.cpp:113:21: warning: declaration shadows a field of 'Meowximizer' [-Wshadow]
-  113 |        /Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:318:29: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
-  318 |                 if (contour != lastContour) { for (int c = 0; c < nch; ++c) { bqLowShelf(co,  const float lift = this->lift.load();
+  113 |         const float lift = this->lift.load();
       |                     ^
-f/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:27:75: note: previous declaration is here
+/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/Meowximizer.h:27:75: note: previous declaration is here
    27 |     std::atomic<float> bandLv[3], bandGain[3], dLo { 0.f }, dMid { 0.f }, lift { 0.f };
       |                                                                           ^
-s, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } lastContour = contour; }
-      |                     ~~~~~~~ ^  ~~~~~~~~~~~
-/Users/runner/work/Meowximizer/Meowximizer/src/maximizer/MxCore.h:319:28: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
-  319 |                 if (airAmt != lastAir) { for (int c = 0; c < nch; ++c) { bqHighShelf(co, fs, 9000.0, 0.7071, std::pow(10.0, std::min(airAmt, 3.f) * 4.5 / 20.0)); ch[c].airShelf.set(co); } lastAir = airAmt; }
-      |                     ~~~~~~ ^  ~~~~~~~
 4 warnings generated.
 [ 30%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
 [ 31%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
-9 warnings generated.
 [ 33%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
+9 warnings generated.
 [ 34%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
 [ 36%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
 [ 37%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
@@ -134,23 +134,23 @@ s, 70.0, 0.7071, std::pow(10.0, contour * 1.1 / 20.0)); ch[c].shelf.set(co); } l
 [ 60%] Building CXX object CMakeFiles/Meowximizer.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
 [ 62%] Linking CXX static library Meowximizer_artefacts/Release/libMeowximizer_SharedCode.a
 [ 62%] Built target Meowximizer
-[ 63%] Generating Meowximizer_artefacts/JuceLibraryCode/Meowximizer_VST3/PkgInfo
-[ 65%] Generating Meowximizer_artefacts/JuceLibraryCode/Meowximizer_Standalone/PkgInfo
-[ 66%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 68%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 69%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 71%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 72%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 63%] Generating Meowximizer_artefacts/JuceLibraryCode/Meowximizer_Standalone/PkgInfo
+[ 65%] Generating Meowximizer_artefacts/JuceLibraryCode/Meowximizer_VST3/PkgInfo
+[ 66%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 69%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 69%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 71%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 73%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 [ 73%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 75%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
-[ 76%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
-[ 78%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
-[ 79%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 75%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 76%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
+[ 78%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
+[ 79%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
 [ 81%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
 [ 82%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
 [ 84%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
-[ 85%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 86%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
+[ 85%] Building CXX object CMakeFiles/Meowximizer_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
+[ 86%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
 [ 88%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
 [ 89%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
 [ 91%] Building CXX object CMakeFiles/Meowximizer_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
