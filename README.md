@@ -6,7 +6,7 @@ Free, open source sonic enhancer, bass enhancer and exciter for Linux (VST3 and 
 
 **Manual:** [PDF with interface tour, opens in the browser](https://github.com/SpeakingColors/Meowximizer/blob/main/docs/Meowximizer-manual.pdf)
 
-<p align="center"><img src="docs/screenshot.png" alt="Meowximizer editor" width="900"><br><sub>Screenshot of the plugin page in docs/mockups.</sub></p>
+<p align="center"><img src="docs/screenshot.png" alt="Meowximizer editor" width="900"><br><sub>Screenshot of the real plugin window (Linux standalone build).</sub></p>
 
 ## Status
 Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet.
