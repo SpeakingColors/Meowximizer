@@ -28,6 +28,7 @@ jobs:
       - name: Build
         run: cmake --build build --config Release --parallel 4 2>&1 | tee -a ci.log; exit ${PIPESTATUS[0]}
       - name: Validate with pluginval
+        timeout-minutes: 20
         continue-on-error: true
         run: |
           set -x
@@ -45,6 +46,7 @@ jobs:
           done
           exit $rc
       - name: Upload pluginval report
+        timeout-minutes: 20
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
